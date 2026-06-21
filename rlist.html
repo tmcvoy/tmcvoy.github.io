@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading List - Travis McVoy</title>
+
+    <style>
+    /* Global Styles */
+    body {
+        font-family: sans-serif; 
+        margin: 0;
+        padding: 0;
+        background-color: #131722; 
+        color: #8F9CAE;           
+        font-size: 16px;          
+        line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+        color: #BDC7D4;           
+    }
+
+    /* Navigation Bar Layout */
+    header {
+        position: fixed;   
+        top: 0;            
+        left: 0;           
+        right: 0;          
+        z-index: 1000;     
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        padding: 14px 30px;        
+        background-color: #1C2130; 
+        box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4); 
+    }
+
+    .nav-left-group {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .nav-brand {
+        font-weight: bold;
+        text-decoration: none;
+        color: #BDC7D4; 
+        margin-right: 50px; 
+        font-size: 18px;
+        transition: color 0.2s ease; 
+    }
+
+    .nav-brand:hover {
+        color: #F59E0B; 
+        cursor: pointer;
+    }
+
+    .nav-pages {
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-pages a {
+        text-decoration: none;
+        color: #8F9CAE; 
+        font-size: 16px;
+        transition: color 0.2s ease;
+    }
+
+    .nav-pages a:hover {
+        color: #F59E0B; 
+    }
+
+    .nav-right a {
+        text-decoration: none;
+        color: #8F9CAE;
+        font-size: 16px;
+        transition: color 0.2s ease;
+    }
+
+    .nav-right a:hover {
+        color: #F59E0B; 
+    }
+
+    /* Main Content Split Layout */
+    .homepage-container {
+        display: flex; 
+        max-width: 1200px;
+        margin: 0 auto;           
+        padding: 110px 30px 40px 30px; 
+        gap: 40px;
+    }
+
+    /* Left Column Sidebar (Sticky & Dynamic Height Constrained) */
+    .profile-sidebar {
+        width: 250px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 95px;                
+        max-height: calc(100vh - 130px); /* Never exceeds layout viewport view frame */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Right Column Content Panel Area */
+    .main-content {
+        flex: 1; 
+        min-width: 0; 
+        padding-top: 0px;         
+    }
+
+    /* Formal Page Intro Header Rules */
+    .intro-toggle-btn {
+        background: none;
+        border: none;
+        color: #5F738E;           
+        font-size: 13px;
+        cursor: pointer;
+        padding: 0;
+        margin: 5px 0 15px 0;
+        text-decoration: underline;
+        display: block;
+        transition: color 0.2s ease;
+    }
+
+    .intro-toggle-btn:hover {
+        color: #F59E0B;
+    }
+
+    .intro-content {
+        color: #8F9CAE;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .header-divider {
+        border-bottom: 1px solid #2E374A; 
+        margin: 25px 0 35px 0;
+    }
+
+    /* Bordered Table of Contents Content Panel Frame */
+    .nav-bordered-box {
+        background-color: #1C2130; 
+        border: 1px solid #2E374A; 
+        border-radius: 8px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        height: auto;               
+        max-height: 100%;           
+        box-sizing: border-box;
+    }
+
+    .control-panel {
+        margin-bottom: 15px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #2E374A;
+        flex-shrink: 0;
+    }
+
+    .control-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #5F738E;
+        margin-bottom: 8px;
+        display: block;
+        font-weight: bold;
+    }
+
+    /* Switch Toggle Track Wrapper */
+    .switch-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #131722; 
+        border: 1px solid #2E374A;
+        border-radius: 30px;
+        padding: 3px;
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        height: 24px;
+    }
+
+    .switch-pill {
+        position: absolute;
+        top: 3px;
+        bottom: 3px;
+        width: calc(50% - 3px);
+        background-color: #2E374A; 
+        border-radius: 20px;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1;
+    }
+
+    .switch-label {
+        flex: 1;
+        text-align: center;
+        font-size: 11px;
+        font-weight: bold;
+        color: #5F738E;
+        z-index: 2;
+        transition: color 0.2s ease;
+    }
+
+    .switch-container[data-view="topic"] .label-topic { color: #BDC7D4; }
+    .switch-container[data-view="lab"] .label-lab { color: #BDC7D4; }
+    .switch-container[data-view="lab"] .switch-pill {
+        transform: translateX(100%);
+    }
+
+    .toc-title {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #5F738E;
+        margin-bottom: 8px;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    /* Scroll Frame Content Tracks */
+    .toc-scroll-frame {
+        flex: 1;
+        overflow-y: auto;         
+        margin-right: -5px;
+        padding-right: 5px;
+        min-height: 0;
+    }
+
+    .toc-scroll-frame::-webkit-scrollbar {
+        width: 4px;
+    }
+    .toc-scroll-frame::-webkit-scrollbar-thumb {
+        background: #2E374A;
+        border-radius: 4px;
+    }
+
+    .toc-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .toc-list li {
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    .toc-list a {
+        color: #8F9CAE;
+        text-decoration: none;
+        font-size: 13px;
+        display: block;
+        width: 100%;
+        padding: 2px 0; 
+        box-sizing: border-box;
+        transition: color 0.1s ease;
+    }
+
+    .toc-list a:hover {
+        color: #F59E0B;
+    }
+
+    /* Deep Subsections Tree Layout Configurations */
+    .toc-sub-list {
+        list-style: none;
+        padding-left: 12px;
+        margin: 2px 0 6px 0;
+        border-left: 1px solid #2E374A;
+    }
+
+    .toc-sub-list a {
+        font-size: 12px;
+        color: #5F738E;
+    }
+
+    /* Primary Heading Sub-Description Toggles */
+    .section-desc-container {
+        margin-top: -10px;
+        margin-bottom: 25px;
+    }
+
+    .section-desc-text {
+        font-size: 14.5px;
+        color: #8F9CAE;
+        line-height: 1.5;
+        margin: 5px 0 0 0;
+    }
+
+    /* Mobile Accordion Component Outer Wrapper Box (Hidden on Desktop) */
+    .mobile-accordion-wrapper {
+        display: none;
+    }
+
+    /* Isolated Tasteful Floating Action Button (FAB) */
+    .back-to-top-fab {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: #1C2130;
+        border: 1px solid #2E374A;
+        color: #BDC7D4;
+        padding: 10px 16px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        z-index: 1010;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .back-to-top-fab:hover {
+        color: #F59E0B;
+        border-color: #F59E0B;
+        transform: translateY(-2px);
+    }
+
+    .back-to-top-fab.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* 5. Reading List Item Structures */
+    .reading-group {
+        margin-bottom: 50px;
+        scroll-margin-top: 105px; 
+    }
+
+    .reading-group h2 {
+        margin-top: 0;
+        border-bottom: 1px solid #1C2130;
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+    }
+
+    .reading-subsection {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        scroll-margin-top: 105px;
+    }
+
+    .reading-subsection h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #BDC7D4;
+        font-size: 18px;
+        border-bottom: 1px dashed #2E374A;
+        padding-bottom: 4px;
+    }
+
+    .paper-item {
+        margin-bottom: 30px;
+        list-style-type: square;
+    }
+
+    .paper-item::marker {
+        color: #2E374A;
+    }
+
+    .paper-title {
+        font-weight: bold;
+        color: #BDC7D4;
+    }
+
+    .paper-authors {
+        color: #8F9CAE;
+        font-size: 15px;
+    }
+
+    .paper-meta {
+        color: #5F738E;
+        font-style: italic;
+        font-size: 14px;
+    }
+
+    /* Terracotta Paper Hyperlinks */
+    .main-content a {
+        color: #b87427; 
+        text-decoration: none;
+        transition: color 0.1s ease;
+    }
+
+    .main-content a:hover {
+        text-decoration: underline;
+    }
+
+    /* Commentary Toggles */
+    .commentary-toggle {
+        background: none;
+        border: none;
+        color: #5F738E;
+        font-size: 13px;
+        cursor: pointer;
+        padding: 0;
+        margin-top: 4px;
+        display: inline-block;
+        text-decoration: underline;
+    }
+
+    .commentary-toggle:hover {
+        color: #b87427;
+    }
+
+    .commentary-box {
+        margin-top: 10px;
+        padding: 12px 16px;
+        background-color: #1C2130;
+        border-left: 3px solid #b87427;
+        border-radius: 0 4px 4px 0;
+        font-size: 14.5px;
+        color: #BDC7D4;
+        display: none; 
+    }
+
+    /* =========================================================
+       6. MOBILE AND INTERFACE RESPONSIVENESS OVERRIDES
+       ========================================================= */
+
+    @media (max-width: 960px), (max-height: 400px) {
+        nav {
+            padding: 15px 20px;
+        }
+
+        .nav-brand {
+            margin-right: 25px;
+        }
+
+        .homepage-container {
+            flex-direction: column;
+            padding-top: 90px; 
+            gap: 20px;
+        }
+
+        .profile-sidebar {
+            width: 100%;
+            height: auto;
+            max-height: none;
+            position: relative; 
+            top: 0;
+        }
+
+        .profile-sidebar .nav-bordered-box {
+            border-radius: 0;
+            padding: 0;
+            background-color: transparent;
+            border: none;
+            flex: none;
+        }
+
+        .control-panel {
+            background-color: #1C2130;
+            border: 1px solid #2E374A;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+
+        .toc-title {
+            display: none;
+        }
+
+        .mobile-accordion-wrapper {
+            display: block;
+            background-color: #1C2130;
+            border: 1px solid #2E374A;
+            border-radius: 6px;
+            overflow: hidden; 
+            margin-bottom: 10px;
+        }
+
+        .mobile-toc-accordion-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1C2130;
+            color: #BDC7D4;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            border: none;
+        }
+
+        .mobile-toc-accordion-trigger::after {
+            content: '▾';
+            font-size: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-toc-accordion-trigger.active::after {
+            transform: rotate(180deg);
+        }
+
+        .mobile-toc-accordion-trigger.active {
+            border-bottom: 1px solid #131722; 
+        }
+
+        .toc-scroll-frame {
+            display: none;
+            background-color: #1C2130;
+            padding: 10px 15px;
+            border: none; 
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .toc-scroll-frame.open {
+            display: block;
+        }
+
+        .toc-list li {
+            padding: 4px 0;
+            border-bottom: 1px solid #131722;
+        }
+        
+        .toc-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .toc-sub-list {
+            border-left: 1px dashed #2E374A;
+            padding-left: 10px;
+            margin-top: 4px;
+        }
+
+        .main-content {
+            padding-left: 0;
+        }
+
+        .reading-group, .reading-subsection {
+            scroll-margin-top: 90px; 
+        }
+
+        .back-to-top-fab {
+            bottom: 20px;
+            right: 20px;
+            padding: 8px 12px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        nav {
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .nav-left-group {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .homepage-container {
+            padding-top: 130px;
+        }
+        .reading-group, .reading-subsection {
+            scroll-margin-top: 140px;
+        }
+    }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="nav-left-group">
+                <a href="index.html" class="nav-brand">Travis McVoy</a>
+                <div class="nav-pages">
+                    <a href="research.html">Research</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="cv.html">CV</a>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <a href="other_stuffs.html">Other Stuffs</a>
+            </div>
+        </nav>
+    </header>
+
+    <a href="#top-anchor" class="back-to-top-fab" id="backToTopFab">Top ▲</a>
+
+    <main class="homepage-container" id="top-anchor">
+        
+        <aside class="profile-sidebar">
+            <div class="nav-bordered-box">
+                <div class="control-panel">
+                    <span class="control-label">Organize By</span>
+                    <div class="switch-container" id="viewToggleSwitch" data-view="topic" onclick="toggleView()">
+                        <div class="switch-pill"></div>
+                        <div class="switch-label label-topic">Topic</div>
+                        <div class="switch-label label-lab">Lab</div>
+                    </div>
+                </div>
+
+                <div class="mobile-accordion-wrapper">
+                    <div class="mobile-toc-accordion-trigger" id="mobileAccordionBtn" onclick="toggleMobileAccordion()">
+                        Jump to a Section
+                    </div>
+
+                    <div class="toc-scroll-frame" id="tocScrollFrame">
+                        <ul class="toc-list" id="tocContainer">
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="toc-title">Jump To:</div>
+                <div class="toc-scroll-frame" id="desktopTocScrollFrame">
+                    <ul class="toc-list" id="desktopTocContainer">
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <section class="main-content">
+            
+            <div class="reading-list-header">
+                <h1 style="margin-top: 0; margin-bottom: 5px;">Curated Reading List</h1>
+                
+                <button class="intro-toggle-btn" id="introToggleBtn" onclick="toggleIntro()">
+                    Hide Description (−)
+                </button>
+                
+                <div class="intro-content" id="introContent">
+                    <p>
+                        Welcome to my database for social good research. This is where I save papers 
+                        that I am currently reading or going to read, as well as brief commentary 
+                        on how the paper does (or does not) align with my goals and 
+                        interests. Specifically, there are three high-level questions
+                        governing my research directions: 
+                    </p>
+                    <ul>
+                        <li>
+                            <b>Bottlenecks:</b> Given any goal towards social/environmental 
+                            impact, be it women's health, wildfire mitigation, decreasing 
+                            wealth inequality, and more, what is/are the leading bottleneck(s) 
+                            preventing positive change? I suspect that most bottlenecks 
+                            can be classified into one of two categories: 
+                            limitations in public policy or technological shortcomings; 
+                            these categories lead to my next two questions. <br><br>
+                        </li>
+                        <li>
+                            <b>Public Policy:</b> For a specific social good goal, if 
+                            public policy is the bottleneck preventing change, how can 
+                            the algorithmically and statistically inclined 
+                            use technology to empower representatives in making their 
+                            case for changes to social/economic infrastructure? <br><br>
+                        </li>
+                        <li>
+                            <b>Deployable Models:</b> If public policy is not the 
+                            bottleneck preventing change,
+                            then how do we close the gap between what is technologically 
+                            needed and what is currently possible?
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="header-divider"></div>
+            </div>
+
+            <div id="papersListContainer"></div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // Centralized Reading List Matrix
+        const papersDatabase = [
+            {
+                title: "Wildfire smoke exposure and mortality burden in the USA under climate change",
+                authors: "Minghao Qiu, Marshall Burk, et al.",
+                venue: "Nature, 2025",
+                url: "https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/691cb2cb44e5df20632ab58b/1763488460004/QiuEtAl2025_Nature.pdf",
+                topic: ["Climate Change | Wildfire"],
+                lab: ["ECHO"],
+                commentary: ""
+            },
+            {
+                title: "Understanding and Addressing Temperature Impacts on Mortality",
+                authors: "Marshall Burke, Andrew Wilson, et al.",
+                venue: "NBER Working Paper, 2025",
+                url: "https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/68e349719fd59426375c97dc/1759725937403/BurkeWilsonEtAl_2025_NBER.pdf",
+                topic: ["Climate Change | Temperature"],
+                lab: ["ECHO"],
+                commentary: `This paper is part of the 
+                <a href="https://adaptationatlas.org/" 
+                target="_blank">Adaption Atlas</a> project, an impressive 
+                collection of interactive maps and suggested interventions for
+                extreme heat, cold, and smoke exposure due to climate change.
+                
+                <br><br> I do not have the background in cognitive science to 
+                explain why I think this project is so important, but I do 
+                think it is an amazing project. Speaking informally, I suspect
+                there is research that argues that plots like Adaption Atlas contain the
+                optimal combination (from an engagement and reliability perspective) 
+                of technically grounded yet easy to understand.
+                
+                <br><br> Remark: This paper extends much further than just wildfire.
+                At some point I will probably expand my search to broader climate change issues,
+                and when I do, I suspect I will move this paper to a different category.`
+            },
+            {
+                title: "Growing wildfire-derived PM2.5 across the contiguous U.S. and implications for air quality regulation",
+                authors: "Marissa Childs, Mariana Martins, Andrew Wilson, Sam Heft-Neal, Minghao Qiu, Marshall Burke",
+                venue: "EarthArxiv Preprint, 2024",
+                url: "https://www.dropbox.com/scl/fi/mx3pn3vjlnsfuf4xtg5et/WildfirePM2024.pdf?rlkey=4wdlggqfnjn97avmyf5jepy3n&e=2&dl=0",
+                topic: ["Climate Change | Wildfire"],
+                lab: ["ECHO"],
+                commentary: ""
+            },
+            {
+                title: "The Air Pollution Benefits of Low Severity Fire",
+                authors: "Iván Higuera-Mendieta and Marshall Burke",
+                venue: "Science, 2026",
+                url: "https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/6a2b29058c2682319e029704/1781213447241/HigueraMendietaBurke_Science_2026.pdf", 
+                topic: ["Climate Change | Wildfire"],
+                lab: ["ECHO"],
+                commentary: `There are supplementary materials for this paper including 
+                    <a href="https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/6a2b2945e33b3d56578d1f5b/1781213520770/science.aea2490_sm.pdf" 
+                    target="_blank">commentary on materials and methods</a> 
+                    and <a href="https://github.com/echolab-stanford/prescribed_fires" 
+                    target="_blank">a github repo</a> for replication data.` 
+            },
+            {
+                title: "A satellite foundation model for improved wealth monitoring",
+                authors: "Zhuo Zheng, Ivan Higuera-Mendieta, et al.",
+                venue: "arXiv Preprint, 2026",
+                url: "https://arxiv.org/pdf/2604.23166",
+                topic: ["Wealth Inequality"],
+                lab: ["ECHO"],
+                commentary: ""
+            },
+            {
+                title: "Charcoal Anti-Trafficking Reconnaissance",
+                authors: "Human Trafficking Data Lab",
+                venue: "Stanford University Project Hub",
+                url: "https://htdatalab.stanford.edu/projects/using-ai-detect-human-trafficking-space-brazilian-amazon",
+                topic: ["Preventing Human Trafficking"],
+                lab: ["HT Data Lab"], 
+                commentary: `For security/privacy reasons, this project does not 
+                have an affiliated publication. It was, however, presented as a 
+                job talk during my BA; here is a summary of what I learned from the talk.<br><br>
+                <ul>
+                    <li><b>Summary:</b> Charcoal can be used as a 
+                    <a href="https://www.sciencedirect.com/science/article/abs/pii/S0960148123005116" 
+                    target="_blank">fuel source</a> in the steel industry, and 
+                    is produced at kiln sites in 
+                    <a href="https://www.sciencedirect.com/science/article/abs/pii/S0013935112001120" 
+                    target="_blank">Brazil</a>. These sites are exploitative in 
+                    nature, and are used to <a href="https://storymaps.arcgis.com/stories/d63b29355df6450bb6a059679c73d06d#ref-n-o43kvC" 
+                    target="_blank">traffick workers.</a> A detection tool, 
+                    <a href="https://htdatalab.stanford.edu/projects/using-ai-detect-human-trafficking-space-brazilian-amazon" 
+                    target="_blank">ChAR</a>, was developed via neural networks 
+                    (probably CNNs?) to recognize these sites in satellite image 
+                    data, enabling authorities to locate and inspect nearly 
+                    <a href="https://htdatalab.stanford.edu/" target="_blank">200 
+                    sites</a> in the last few years.</li><br>
+
+                    <li><b>Possible Future Directions:</b> This work suggests the 
+                        possibility of other preventative measures using a similar 
+                        framework. My question, then, is can we identify other 
+                        activities with a physical, observable footprint that 
+                        are correlated with illicit behavior, and if so, can said 
+                        behavior be detected (and subsequently prevented) through 
+                        the analysis of geospatial data? In other words, 
+                        perhaps we could try to extend this analysis to illegal 
+                        deforestation, fishing violations, poaching, or even 
+                        human trafficking elsewhere in the world.</li>
+                </ul>`
+            },
+            {
+                title: "Generative AI Against Poaching: Latent Composite Flow Matching for Wildlife Conservation",
+                authors: "Lingkai Kong, Haichuan Wang, Charles A. Emogor, Vincent Borsch-Supan,  Lily Xu, Milind Tambe",
+                venue: "AAAI, 2026",
+                url: "https://arxiv.org/pdf/2508.14342",
+                topic: ["Wildlife Conservation"],
+                lab: ["Teamcore"],
+                commentary: `Remark: People have suggested this paper to me.  I 
+                will read it at some point.  Note though, I generally do not 
+                support phrasing \"Generative AI\" as if it will save wildlife.
+                <br><br/>
+                
+                While I suspect the model in this paper is nothing like the
+                models affliated with the tech oligarchs in favor of data 
+                centers, the fact remains that when the public hears the term
+                \"AI\", they are most likely thinking GPT, Gemini etc.  The 
+                problem with this is that someone lobbying for data centers 
+                can spread propaganda about how they will actually be \"good\"
+                for the environment and cite papers with titles like this one.
+                I think that would be an outrageous abuse of citations, but that
+                is the world we live in.`
+            },
+            {
+                title: "Robust Optimization with Diffusion Models for Green Security",
+                authors: "Lingkai Kong, Haichuan Wang, Yuqi Pan, Cheol Woo Kim, <br>Mingxiao Song, Alayna Nguyen, Tonghan Wang, Haifeng Xu, Milind Tambe",
+                venue: "UAI, 2025",
+                url: "https://arxiv.org/pdf/2503.05730",
+                topic: ["Wildlife Conservation"],
+                lab: ["Teamcore"],
+                commentary: ""
+            },
+            {
+                title: "Find Rhinos without Finding Rhinos: Active Learning with Multimodal Imagery of South African Rhino Habitats",
+                authors: "Lucia Gordon, Nikhil Behari, et al.",
+                venue: "IJCAI Proceedings, 2023",
+                url: "https://www.ijcai.org/proceedings/2023/0663.pdf",
+                topic: ["Wildlife Conservation"],
+                lab: ["Teamcore"],
+                commentary: ""
+            },
+            {
+                title: "A Bayesian approach to the global estimation of maternal mortality",
+                authors: "Leontine Alkema, Sanqian Zhang, Doris Chou, Alison Gemmill, <br>Ann-Beth Moller, Doris Ma Fa, Lale Say, Colin Mathers, Daniel Hogan",
+                venue: "Annals of Applied Statistics, 2017",
+                url: "https://arxiv.org/pdf/1511.03330",
+                topic: ["Women's Health | Maternal Mortality Rates"],
+                lab: ["Alkema Lab"],
+                commentary: ""
+            },
+            {
+                title: "Reduced-Rank Outcome Compression for Causal Policy Optimization",
+                authors: "Ezinne Nwankwo, Michael I. Jordan, Angela Zhou",
+                venue: "Transactions on Machine Learning Research, 2026",
+                url: "https://openreview.net/pdf?id=WQhOaY4yPC",
+                topic: ["Methods \& Theory | Causal Inference"],
+                lab: ["Angela Zhou (USC)"],
+                commentary: ""
+            },
+            {
+                title: "Synthetic Control Analysis of the Short-Term Impact of New York State\’s Bail Elimination Act on Aggregate Crime",
+                authors: "Angela Zhou et al.",
+                venue: "Statistics and Public Policy, 2023",
+                url: "https://arxiv.org/pdf/2111.08664",
+                topic: ["Public Policy"],
+                lab: ["Angela Zhou (USC)"],
+                commentary: ""
+            },
+            {
+                title: "On the VC dimension of deep group convolutional neural networks",
+                authors: "Anna Sepliarskaia, Sophie Langer, Johannes Schmidt-Hieber",
+                venue: "NeurIPS, 2025 (Poster)",
+                url: "https://openreview.net/pdf?id=Y9nxhKcgAA",
+                topic: ["Methods \& Theory | CNNs"],
+                lab: ["To Sort"],
+                commentary: "Satellite imagery is emerging as a theme among some of the papers above, and I presume CNNs may be useful generally for satellite imagery (but who knows, maybe visual transformers or other architectures are better these days) and this made me wonder whether anyone had determined if CNNs have finite sample complexity in general; sample complexity could be useful to know when considering problems in which there is a high cost of gathering data for models. If I ever actually come back to this topic, it might be better to start with the paper \"How Many Samples are Needed to Estimate a Convolutional or Recurrent Neural Network? \" by Du et al."
+            },
+            {
+                title: "Obtaining personalized predictions from a randomized controlled trial on Alzheimer\’s disease",
+                authors: "Dennis Shen et al.",
+                venue: "Nature, 2025",
+                url: "",
+                topic: ["General Medicine"],
+                lab: ["Dennis Shen (USC)"],
+                commentary: "This paper is freely available, but it downloads locally. If I don't forget, I will add a link." 
+            },
+            {
+                title: "Using Machine Learning to Help Vulnerable Tenants in New York City",
+                authors: "Ye and Johnson et al.",
+                venue: "COMPASS, 2019",
+                url: "https://www.rayidghani.com/wp-content/uploads/2020/09/3314344.3332484.pdf",
+                topic: ["Wealth Inequality"],
+                lab: ["Data Science For Social Good", "Rayid Ghani"],
+                commentary: ""
+            },
+            {
+                title: "Price and Prejudice: Reimbursement of Surgical Care on Male Versus Female Anatomies",
+                authors: "Madeline Penn, Donessa Colley, Pratistha Koirala, Louise King, Jocelyn Fitzgerald",
+                venue: "Journal of Women's Health, 2025",
+                url: "https://pubmed.ncbi.nlm.nih.gov/39978776/",
+                topic: ["Women's Health | Gender Bias"],
+                lab: ["To Sort"],
+                commentary: "Could not determine the home lab for this paper, but Louise King has other publications that may be of interest."
+            },
+            {
+                title: "Deploying Machine Learning Models for Public Policy: A Framework",
+                authors: "Klaus Ackermann, Joe Walsh, Adolfo De Unánue, Hareem Naveed, Andrea Navarrete Rivera, <br> Sun-Joo Lee, Jason Bennett, Michael Defoe, Crystal Cody, Lauren Haynes and Rayid Ghani",
+                venue: "Conference on Knowledge Discovery and Data Mining, 2018",
+                url: "https://dl.acm.org/doi/epdf/10.1145/3219819.3219911",
+                topic: ["Public Policy"],
+                lab: ["Rayid Ghani"],
+                commentary: ""
+            }
+        ];
+
+        // Centralized Metadata Index Mapping for Subsectional Primary Headings Description Text Nodes
+        const primaryTopicDescriptions = {
+            "Women's Health": "",
+            "General Medicine": "",
+            "Methods \& Theory": "Note: generally speaking, I do not intend to do research in general method development. Rather, I want to apply/modify existing methods to specific problems in a way that serves underrepresented or vulnerable groups/ecosystems. To do so, I will need to stay informed on what methods work well and on what kinds of problems, and that's what this section of the database is for."
+        };
+
+        const customTopicOrder = [
+            "Preventing Human Trafficking",
+            "Women's Health",
+            "Climate Change",
+            "Wealth Inequality",
+            "International Accountability and Regulation",
+            "Public Policy",
+            "Wildlife Conservation",
+            "General Medicine",
+            "Methods \& Theory"
+        ];
+
+        const customLabOrder = [
+            "ECHO",
+            "HT Data Lab",
+            "Rayid Ghani",
+            "Data Science For Social Good",
+            "Teamcore",
+            "Alkema Lab",
+            "FXB Center",
+            "Angela Zhou (USC)",
+            "Dennis Shen (USC)",
+            "To sort"
+        ];
+
+        let currentView = 'topic'; 
+
+        function sortGroupKeys(keysArray) {
+            const orderRef = currentView === 'topic' ? customTopicOrder : customLabOrder;
+            return keysArray.sort((a, b) => {
+                let indexA = orderRef.indexOf(a);
+                let indexB = orderRef.indexOf(b);
+                if (indexA === -1) indexA = 999 + a.localeCompare(b);
+                if (indexB === -1) indexB = 999 + b.localeCompare(a);
+                return indexA - indexB;
+            });
+        }
+
+        function toggleSectionDesc(descId, btnId) {
+            const desc = document.getElementById(descId);
+            const btn = document.getElementById(btnId);
+            if (desc.style.display === 'none') {
+                desc.style.display = 'block';
+                btn.innerHTML = 'Hide Section Description (−)';
+            } else {
+                desc.style.display = 'none';
+                btn.innerHTML = 'Show Section Description (+)';
+            }
+        }
+
+        function appendPaperListHTML(papersArray, uniqueGroupIndex) {
+            let listHTML = `<ul style="padding-left: 20px; margin: 0;">`;
+            papersArray.forEach((item, pIndex) => {
+                const uniqueBoxId = `commentary-${uniqueGroupIndex}-${pIndex}`;
+                const titleHTML = item.url 
+                    ? `<a href="${item.url}" target="_blank">${item.title}</a>`
+                    : `${item.title} <span style="font-size:12px; color:#5F738E; font-weight:normal; font-style:italic;">(Link pending)</span>`;
+
+                const hasCommentary = item.commentary && item.commentary.trim() !== "" && item.commentary !== "TODO";
+
+                let commentaryHTML = '';
+                if (hasCommentary) {
+                    commentaryHTML = `
+                        <button class="commentary-toggle" id="btn-${uniqueBoxId}" onclick="toggleCommentary('${uniqueBoxId}')">Show Commentary (+)</button>
+                        <div class="commentary-box" id="${uniqueBoxId}">
+                            ${item.commentary}
+                        </div>
+                    `;
+                }
+
+                listHTML += `
+                    <li class="paper-item">
+                        <span class="paper-title">${titleHTML}</span><br>
+                        <span class="paper-authors">${item.authors}</span><br>
+                        <span class="paper-meta">${item.venue}</span><br>
+                        ${commentaryHTML}
+                    </li>
+                `;
+            });
+            listHTML += `</ul>`;
+            return listHTML;
+        }
+
+        function renderPage() {
+            const papersListContainer = document.getElementById('papersListContainer');
+            const mobileTocContainer = document.getElementById('tocContainer');
+            const desktopTocContainer = document.getElementById('desktopTocContainer');
+            
+            papersListContainer.innerHTML = '';
+            mobileTocContainer.innerHTML = '';
+            desktopTocContainer.innerHTML = '';
+
+            const groupings = {};
+            papersDatabase.forEach(item => {
+                const currentKeys = currentView === 'topic' ? item.topic : item.lab;
+                const keysArray = Array.isArray(currentKeys) ? currentKeys : [currentKeys];
+                
+                keysArray.forEach(key => {
+                    if (currentView === 'topic' && key.includes(' | ')) {
+                        const [mainTopic, subTopic] = key.split(' | ').map(s => s.trim());
+                        if (!groupings[mainTopic]) {
+                            groupings[mainTopic] = { isHierarchical: true, subtopics: {} };
+                        }
+                        if (!groupings[mainTopic].subtopics[subTopic]) {
+                            groupings[mainTopic].subtopics[subTopic] = [];
+                        }
+                        groupings[mainTopic].subtopics[subTopic].push(item);
+                    } else {
+                        if (!groupings[key]) {
+                            groupings[key] = { isHierarchical: false, papers: [] };
+                        }
+                        groupings[key].papers.push(item);
+                    }
+                });
+            });
+
+            const sortedKeys = sortGroupKeys(Object.keys(groupings));
+
+            sortedKeys.forEach((groupName, index) => {
+                const safeMainId = `group-${index}`;
+                const groupData = groupings[groupName];
+
+                const makeTocItem = (isMobile) => {
+                    const li = document.createElement('li');
+                    let tocHTML = `<a href="#${safeMainId}" onclick="closeMobileAccordion()">${groupName}</a>`;
+                    
+                    if (groupData.isHierarchical) {
+                        tocHTML += `<ul class="toc-sub-list">`;
+                        Object.keys(groupData.subtopics).forEach((subName, sIdx) => {
+                            const safeSubId = `sub-${index}-${sIdx}`;
+                            tocHTML += `<li><a href="#${safeSubId}" onclick="closeMobileAccordion()">${subName}</a></li>`;
+                        });
+                        tocHTML += `</ul>`;
+                    }
+                    li.innerHTML = tocHTML;
+                    return li;
+                };
+
+                mobileTocContainer.appendChild(makeTocItem(true));
+                desktopTocContainer.appendChild(makeTocItem(false));
+
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'reading-group';
+                sectionDiv.id = safeMainId;
+
+                let contentHTML = `<h2>${groupName}</h2>`;
+
+                if (currentView === 'topic' && primaryTopicDescriptions[groupName]) {
+                    const descId = `desc-${index}`;
+                    const btnId = `desc-btn-${index}`;
+                    contentHTML += `
+                        <div class="section-desc-container">
+                            <button class="intro-toggle-btn" id="${btnId}" onclick="toggleSectionDesc('${descId}', '${btnId}')">Hide Section Description (−)</button>
+                            <div class="section-desc-text" id="${descId}">${primaryTopicDescriptions[groupName]}</div>
+                        </div>
+                    `;
+                }
+
+                if (groupData.isHierarchical) {
+                    Object.keys(groupData.subtopics).forEach((subName, sIdx) => {
+                        const safeSubId = `sub-${index}-${sIdx}`;
+                        contentHTML += `
+                            <div class="reading-subsection" id="${safeSubId}">
+                                <h3>${subName}</h3>
+                                ${appendPaperListHTML(groupData.subtopics[subName], `h-${index}-${sIdx}`)}
+                            </div>
+                        `;
+                    });
+                } else {
+                    contentHTML += appendPaperListHTML(groupData.papers, index);
+                }
+
+                sectionDiv.innerHTML = contentHTML;
+                papersListContainer.appendChild(sectionDiv);
+            });
+        }
+
+        function toggleView() {
+            const toggleSwitch = document.getElementById('viewToggleSwitch');
+            if (currentView === 'topic') {
+                currentView = 'lab';
+                toggleSwitch.setAttribute('data-view', 'lab');
+            } else {
+                currentView = 'topic';
+                toggleSwitch.setAttribute('data-view', 'topic');
+            }
+            renderPage();
+            closeMobileAccordion();
+        }
+
+        function toggleCommentary(boxId) {
+            const box = document.getElementById(boxId);
+            const btn = document.getElementById(`btn-${boxId}`);
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+                btn.innerHTML = 'Show Commentary (+)';
+            } else {
+                box.style.display = 'block';
+                btn.innerHTML = 'Hide Commentary (-)';
+            }
+        }
+
+        function toggleIntro() {
+            const content = document.getElementById('introContent');
+            const btn = document.getElementById('introToggleBtn');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                btn.innerHTML = 'Hide Description (−)';
+            } else {
+                content.style.display = 'none';
+                btn.innerHTML = 'Show Description (+)';
+            }
+        }
+
+        function toggleMobileAccordion() {
+            const frame = document.getElementById('tocScrollFrame');
+            const btn = document.getElementById('mobileAccordionBtn');
+            frame.classList.toggle('open');
+            btn.classList.toggle('active');
+        }
+
+        function closeMobileAccordion() {
+            const frame = document.getElementById('tocScrollFrame');
+            const btn = document.getElementById('mobileAccordionBtn');
+            frame.classList.remove('open');
+            btn.classList.remove('active');
+        }
+
+        window.addEventListener('scroll', () => {
+            const fab = document.getElementById('backToTopFab');
+            if (window.scrollY > 300) {
+                fab.classList.add('visible');
+            } else {
+                fab.classList.remove('visible');
+            }
+        });
+
+        renderPage();
+    </script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Stuffs - Travis McVoy</title>
+
+    <style>
+    /* Global Styles */
+    body {
+        font-family: sans-serif; 
+        margin: 0;
+        padding: 0;
+        background-color: #131722; 
+        color: #8F9CAE;           
+        line-height: 1.6;
+    }
+
+    
+    h1, h2 {
+        color: #BDC7D4;
+    }
+
+    /* Fixed Navigation Bar Layout & Colors */
+    header {
+        position: fixed;   
+        top: 0;            
+        left: 0;           
+        right: 0;          
+        z-index: 1000;     
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        padding: 14px 30px;        
+        background-color: #1C2130; 
+        box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4); 
+        position: relative;
+    }
+
+    .nav-brand {
+        font-weight: bold;
+        text-decoration: none;
+        color: #BDC7D4; 
+        margin-right: 50px;        
+        font-size: 18px;
+        transition: color 0.2s ease; 
+        white-space: nowrap;
+    }
+
+    .nav-brand:hover {
+        color: #F59E0B; 
+        cursor: pointer;
+    }
+
+    /* Flex wrapper to handle desktop layout links cleanly */
+    .nav-links-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex: 1;
+    }
+
+    .nav-pages {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-pages a {
+        text-decoration: none;
+        color: #8F9CAE; 
+        margin-right: 30px;        
+        font-size: 16px;
+        transition: color 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .nav-pages a:hover {
+        color: #F59E0B; 
+    }
+
+    .nav-right a {
+        text-decoration: none;
+        color: #8F9CAE;
+        font-size: 16px;
+        transition: color 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .nav-right a:hover {
+        color: #F59E0B; 
+    }
+
+    /* Expandable Toggle Button (Hidden on desktop by default) */
+    .nav-toggle-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: #BDC7D4;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px;
+        transition: color 0.2s ease;
+        user-select: none;
+    }
+
+    .nav-toggle-btn:hover {
+        color: #F59E0B;
+    }
+
+    /* Dynamic Mobile Navbar State (triggered via JS collision detection) */
+    nav.mobile-view .nav-toggle-btn {
+        display: block;
+    }
+
+    nav.mobile-view .nav-links-wrapper {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #1C2130;
+        padding: 20px 30px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        border-top: 1px solid #2E374A;
+    }
+
+    nav.mobile-view .nav-links-wrapper.open {
+        display: flex;
+    }
+
+    nav.mobile-view .nav-pages {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    nav.mobile-view .nav-pages a {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    nav.mobile-view .nav-right {
+        border-top: 1px solid #2E374A;
+        padding-top: 15px;
+        width: 100%;
+    }
+
+    /* Full-Width Single Column Layout */
+    .full-width-container {
+        max-width: 800px;         
+        margin: 0 auto;           
+        padding: 105px 30px 40px 30px; 
+    }
+
+    /* Large, flush-left header styling */
+    .page-title {
+        font-size: 36px;
+        margin: 0 0 30px 0;
+        text-align: left;
+    }
+
+    /* Paragraph presentation rules */
+    .content-body p {
+        line-height: 1.7;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    /* orange inline link setup */
+    .content-body a {
+        color: #b87427;          
+        text-decoration: none;    
+        transition: color 0.1s ease;
+    }
+
+    .content-body a:hover {
+        text-decoration: underline; 
+    }
+
+    /* Structural wrapper for semantic fun links list */
+    .fun-links-list {
+        padding-left: 20px;
+        margin: 0;
+    }
+
+    .fun-links-list li {
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    /* Meme Image Centering Blocks */
+    .meme-container {
+        display: flex;
+        justify-content: center;   /* Centers the image block horizontally */
+        margin: 35px 0 45px 0;    /* Clean spacing above and below the meme */
+    }
+
+    .meme-img {
+        width: 100%;
+        max-width: 500px;         /* Fluid boundary structure for smaller layout windows */
+        height: auto;             /* Keeps the aspect ratio true to the original file shape */
+        border-radius: 6px;       /* Subtle rounding on sharp edges */
+        border: 1px solid #2E374A; 
+    }
+
+    /* Heading for sub-sections inside content */
+    .section-subtitle {
+        font-size: 24px;
+        margin-top: 35px;
+        margin-bottom: 15px;
+    }
+</style>
+</head>
+<body>
+
+    <header>
+        <nav id="main-nav">
+            <a href="index.html" class="nav-brand">Travis McVoy</a>
+            
+            <button id="nav-toggle" class="nav-toggle-btn" aria-label="Toggle Navigation">☰</button>
+            
+            <div id="nav-links" class="nav-links-wrapper">
+                <div id="nav-pages-group" class="nav-pages">
+                    <a href="research.html">Research</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="cv.html">CV</a>
+                </div>
+                
+                <div id="nav-right-group" class="nav-right">
+                    <a href="other_stuffs.html">Other Stuffs</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="full-width-container">
+        
+        <h1 class="page-title">Other Stuffs!</h1>
+
+        <div class="content-body">
+            <p>
+                Welcome to my "Other Stuffs" page.          
+                It is currently under-construction.  
+                At some point I hope to use this page as a way to display a bit 
+                of ✨sparkle✨, a little bit of 💫 personality 💫....so you know, 
+                hobbies and other interests. 
+            </p>
+
+            <p>
+                In all seriousness,
+                I think it is critical to have hobbies.  Some days you are going to
+                try to make research progress and nothing will go according to plan.
+                A term will be dropped in a long proof, 
+                a single missing character will cause your whole program to crash,
+                and you will just want to quit.  It is the ability to push past the inevitable frustration
+                that comes with trying something new that
+                will determine a student's ability to succeed.
+                So when you want to quit, do other stuffs instead.  Do other stuffs just barely
+                long enough until you forget why you wanted to quit, and then keep doing research!  It is a flawless algorithm.  Nothing could possibly go wrong.  Especially not burn out.
+            </p>
+
+            <div class="meme-container">
+                <img src="../imgs/memes/idea_no_work.png" alt="Other Stuffs Meme Layout" class="meme-img">
+            </div>
+
+            <h2 class="section-subtitle">Fun Links</h2>
+            <ul class="fun-links-list">
+                <li>        
+                    Here are some fun <a href="https://alike-laugh-2b0.notion.site/COMICS-c86d0fa2a271472cac0dc906de4e3f6e" target="_blank">math comics</a>
+                </li>
+                <li>
+                    The <a href="https://matt.might.net/articles/phd-school-in-pictures/" target="_blank">illustrated guide to a PhD</a>
+                </li>
+                <li> 
+                    Cute <a href="https://www.youtube.com/watch?v=VgoE837TskI" target="_blank">cat video</a>
+                </li>
+            </ul>
+        </div>
+
+    </main>
+
+    <script>
+    window.addEventListener("load", function() {
+        // --- Navbar Dynamic Collision Logic ---
+        const nav = document.getElementById('main-nav');
+        const linksWrapper = document.getElementById('nav-links');
+        const brand = document.querySelector('.nav-brand');
+        const navToggle = document.getElementById('nav-toggle');
+        
+        const navPages = document.getElementById('nav-pages-group');
+        const navRight = document.getElementById('nav-right-group');
+
+        const requiredNavbarWidth = brand.offsetWidth + navPages.offsetWidth + navRight.offsetWidth + 140;
+
+        function handleNavbarResize() {
+            if (window.innerWidth <= requiredNavbarWidth) {
+                nav.classList.add('mobile-view');
+            } else {
+                nav.classList.remove('mobile-view');
+                linksWrapper.classList.remove('open');
+                navToggle.innerHTML = "☰";
+            }
+        }
+
+        navToggle.addEventListener('click', function() {
+            const isOpen = linksWrapper.classList.toggle('open');
+            navToggle.innerHTML = isOpen ? "✕" : "☰";
+        });
+
+        window.addEventListener('resize', handleNavbarResize);
+        handleNavbarResize();
+    });
+    </script>
+</body>
+</html>

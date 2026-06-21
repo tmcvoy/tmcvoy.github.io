@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travis McVoy - Academic Homepage</title>
+
+    <style>
+    /* Global Styles */
+    body {
+        font-family: sans-serif; 
+        margin: 0;
+        padding: 0;
+        background-color: #131722; 
+        color: #8F9CAE;           
+        font-size: 16px;          
+        line-height: 1.6;
+    }
+
+    
+    h1, h2, h3 {
+        color: #BDC7D4;
+    }
+
+    
+    header {
+        position: fixed;   
+        top: 0;            
+        left: 0;           
+        right: 0;          
+        z-index: 1000;     
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        padding: 14px 30px;        
+        background-color: #1C2130; 
+        box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4); 
+        position: relative;
+    }
+
+    .nav-brand {
+        font-weight: bold;
+        text-decoration: none;
+        color: #BDC7D4; 
+        margin-right: 50px;        
+        font-size: 18px;
+        transition: color 0.2s ease; 
+        white-space: nowrap;
+    }
+
+    .nav-brand:hover {
+        color: #F59E0B; 
+        cursor: pointer;
+    }
+
+    /* Flex wrapper to handle desktop layout links cleanly */
+    .nav-links-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex: 1;
+    }
+
+    .nav-pages {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-pages a {
+        text-decoration: none;
+        color: #8F9CAE; 
+        margin-right: 30px;        
+        font-size: 16px;
+        transition: color 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .nav-pages a:hover {
+        color: #F59E0B; 
+    }
+
+    .nav-right a {
+        text-decoration: none;
+        color: #8F9CAE;
+        font-size: 16px;
+        transition: color 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .nav-right a:hover {
+        color: #F59E0B; 
+    }
+
+    /* Expandable Toggle Button (Hidden on desktop by default) */
+    .nav-toggle-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: #BDC7D4;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px;
+        transition: color 0.2s ease;
+        user-select: none;
+    }
+
+    .nav-toggle-btn:hover {
+        color: #F59E0B;
+    }
+
+    /* Dynamic Mobile Navbar State (triggered via JS collision detection) */
+    nav.mobile-view .nav-toggle-btn {
+        display: block;
+    }
+
+    nav.mobile-view .nav-links-wrapper {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #1C2130;
+        padding: 20px 30px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        border-top: 1px solid #2E374A;
+    }
+
+    nav.mobile-view .nav-links-wrapper.open {
+        display: flex;
+    }
+
+    nav.mobile-view .nav-pages {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    nav.mobile-view .nav-pages a {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    nav.mobile-view .nav-right {
+        border-top: 1px solid #2E374A;
+        padding-top: 15px;
+        width: 100%;
+    }
+
+    /* Main Content Split Layout */
+    .homepage-container {
+        display: flex; 
+        max-width: 1100px;
+        margin: 0 auto 0 8%;       /* Asymmetric left-aligned look for future expansion space */
+        padding: 95px 20px 50px 20px; 
+    }
+
+    /* Left Column Sidebar (With Sticky positioning) */
+    .profile-sidebar {
+        flex: 1; 
+        min-width: 210px;
+        max-width: 230px; 
+        padding-right: 40px; 
+        border-right: 1px solid #2E374A; 
+        
+        position: sticky;
+        top: 95px;                
+        height: fit-content;      
+    }
+
+    /* Right Column (Bio/Research) */
+    .main-content {
+        flex: 2; 
+        padding-left: 40px; 
+        padding-top: 0px; 
+        max-width: 620px;         
+    }
+
+    /* Profile Picture & Sidebar Styling */
+    .profile-name {
+        margin: 15px 0 4px 0;
+        font-size: 24px;          
+    }
+
+    .profile-title {
+        margin: 0 0 20px 0;
+        color: #5F738E;           
+        font-style: italic;
+        font-size: 15px;
+    }
+
+    .profile-pic-placeholder img {
+        width: 165px;             
+        height: 165px;
+        border-radius: 50%; 
+        object-fit: cover; 
+        border: 2px solid #2E374A; 
+    }
+
+    .info-lines {
+        list-style: none; 
+        padding: 0;
+        margin: 0;
+    }
+
+    .info-lines li {
+        margin-bottom: 10px; 
+        font-size: 15px;          
+    }
+
+    .sidebar-link {
+        color: #8F9CAE;      
+        text-decoration: none; 
+        margin-left: 4px;
+    }
+
+    /* Section Spacing for Right Column */
+    .about-section, .research-section {
+        margin-bottom: 40px;
+    }
+
+    .about-section h2 {
+        margin-top: 0;
+        font-size: 24px;
+    }
+
+    .research-section h2 {
+        font-size: 24px;
+    }
+
+    /* Global Hyperlink Rules for all main text containers */
+    .main-content a {
+        color: #b87427;          
+        text-decoration: none;    
+        transition: color 0.1s ease;
+    }
+
+    .main-content a:hover {
+        text-decoration: underline; 
+    }
+
+    /* Tablet & Mobile Responsive Breakpoint for Profile Layout */
+    @media (max-width: 900px) {
+        .homepage-container {
+            flex-direction: column;
+            margin: 0 auto;       
+            padding: 90px 20px 40px 20px;
+        }
+
+        .profile-sidebar {
+            max-width: 100%;
+            min-width: 0;
+            padding-right: 0;
+            border-right: none;
+            border-bottom: 1px solid #2E374A;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            top: 0;
+        }
+
+        .profile-header-mobile {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .profile-text-mobile {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-name {
+            margin: 0 0 4px 0;
+            font-size: 26px;
+        }
+
+        .profile-title {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+        }
+
+        .profile-pic-placeholder img {
+            width: 120px;
+            height: 120px;
+        }
+
+        .info-toggle-btn {
+            display: inline-block !important; 
+            background-color: #1C2130;
+            color: #BDC7D4;
+            border: 1px solid #2E374A;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            width: fit-content;
+        }
+
+        .info-toggle-btn:hover {
+            background-color: #2E374A;
+            color: #F59E0B;
+        }
+
+        .info-lines {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #1C2130;
+            border-radius: 6px;
+            border: 1px solid #2E374A;
+        }
+
+        .info-lines.open {
+            display: block;
+        }
+
+        .main-content {
+            padding-left: 0;
+            max-width: 100%;
+        }
+    }
+
+    /* Safety fallback parameters for desktop rendering */
+    @media (min-width: 901px) {
+        .info-toggle-btn {
+            display: none !important;
+        }
+        .info-lines {
+            display: block !important;
+        }
+        .profile-header-mobile {
+            display: contents;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <header>
+        <nav id="main-nav">
+            <a href="index.html" class="nav-brand">Travis McVoy</a>
+            
+            <button id="nav-toggle" class="nav-toggle-btn" aria-label="Toggle Navigation">☰</button>
+            
+            <div id="nav-links" class="nav-links-wrapper">
+                <div id="nav-pages-group" class="nav-pages">
+                    <a href="research.html">Research</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="cv.html">CV</a>
+                </div>
+                
+                <div id="nav-right-group" class="nav-right">
+                    <a href="other_stuffs.html">Other Stuffs</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="homepage-container">
+        
+        <aside class="profile-sidebar">
+            <div class="profile-header-mobile">
+                <div class="profile-pic-placeholder">
+                    <img src="../imgs/profile.jpg" alt="Travis McVoy Profile Picture">
+                </div>
+                
+                <div class="profile-text-mobile">
+                    <h1 class="profile-name">Travis McVoy</h1>
+                    <p class="profile-title">Computer Science PhD Student</p>
+                    <button id="info-toggle" class="info-toggle-btn">More Info</button>
+                </div>
+            </div>
+            
+            <ul id="profile-info-list" class="info-lines">
+                <li>🏢 Los Angeles, CA</li>
+                <li>✉️ mcvoy at usc.edu</li>
+                <li>🎓<a class="sidebar-link" 
+                    href="https://scholar.google.com/citations?user=wSugLE4AAAAJ&hl=en&oi=ao" 
+                    target="_blank">Google Scholar</a></li>
+            </ul>
+        </aside>
+
+        <section class="main-content">
+            
+            <div class="about-section">
+                <h2>About Me</h2>
+                <p> I am a first year computer science PhD student at the University of Southern California, 
+                    fortunate to be advised by <a href="https://www.shaddin.com/" target="_blank"> Shaddin Dughmi</a>.  
+                    Prior to USC, I was a <a 
+                    href="https://programs.mcs.cmu.edu/ssp/" 
+                    target="_blank">Summer Scholars Fellow</a> at Carnegie Mellon University 
+                    where I studied the uncertainty quantification 
+                    of estimating diffusion coefficients 
+                    under the supervision of <a 
+                    href="https://cee.engineering.cmu.edu/directory/bios/wang-gerald.html" 
+                    target="_blank">Jerry Wang</a>.  
+                    
+                    <br><br>Outside of research, I enjoy rock climbing; 
+                    if you're looking for a new hobby in LA, come climbing with the CS <a 
+                    href="https://viterbi-web.usc.edu/~cstheory/" 
+                    target="_blank">theory group</a>!</p>
+            </div>
+            
+            <div class="research-section">
+                <h2>Research Interests</h2>
+                <p>
+                    My interests lie in the intersection of <b>social good</b> and
+                    estimation for <b>decision making under uncertainty</b>. Through 
+                    the leveraging of statistical inference and machine learning,
+                    I aim to contribute to the protection of <b>human rights</b>
+                    and <b>environmental sustainability</b>. Some applications I am excited about are highlighted in my growing 
+                    <a href="rlist.html">reading list</a>.
+                </p> 
+            </div>
+        </section>
+    </main>
+
+    <script>
+    window.addEventListener("load", function() {
+        // --- Navbar Dynamic Collision Logic ---
+        const nav = document.getElementById('main-nav');
+        const linksWrapper = document.getElementById('nav-links');
+        const brand = document.querySelector('.nav-brand');
+        const navToggle = document.getElementById('nav-toggle');
+        
+        const navPages = document.getElementById('nav-pages-group');
+        const navRight = document.getElementById('nav-right-group');
+
+        // Threshold optimized exactly to match the narrower font-spacing rules
+        const requiredNavbarWidth = brand.offsetWidth + navPages.offsetWidth + navRight.offsetWidth + 140;
+
+        function handleNavbarResize() {
+            if (window.innerWidth <= requiredNavbarWidth) {
+                nav.classList.add('mobile-view');
+            } else {
+                nav.classList.remove('mobile-view');
+                linksWrapper.classList.remove('open');
+                navToggle.innerHTML = "☰";
+            }
+        }
+
+        navToggle.addEventListener('click', function() {
+            const isOpen = linksWrapper.classList.toggle('open');
+            navToggle.innerHTML = isOpen ? "✕" : "☰";
+        });
+
+        // --- Profile Sidebar Expandable Info Lines Logic ---
+        const infoToggle = document.getElementById('info-toggle');
+        const profileInfoList = document.getElementById('profile-info-list');
+
+        if (infoToggle && profileInfoList) {
+            infoToggle.addEventListener('click', function() {
+                const isOpen = profileInfoList.classList.toggle('open');
+                infoToggle.textContent = isOpen ? "Hide Info" : "More Info";
+            });
+        }
+
+        window.addEventListener('resize', handleNavbarResize);
+        handleNavbarResize();
+    });
+    </script>
+</body>
+</html>
