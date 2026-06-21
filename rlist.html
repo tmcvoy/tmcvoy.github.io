@@ -21,15 +21,6 @@
         color: #BDC7D4;           
     }
 
-    /* Navigation Bar Layout */
-    header {
-        position: fixed;   
-        top: 0;            
-        left: 0;           
-        right: 0;          
-        z-index: 1000;     
-    }
-
     nav {
         display: flex;
         justify-content: space-between; 
@@ -37,21 +28,17 @@
         padding: 14px 30px;        
         background-color: #1C2130; 
         box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4); 
-    }
-
-    .nav-left-group {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
+        position: relative;
     }
 
     .nav-brand {
         font-weight: bold;
         text-decoration: none;
         color: #BDC7D4; 
-        margin-right: 50px; 
+        margin-right: 50px;        
         font-size: 18px;
         transition: color 0.2s ease; 
+        white-space: nowrap;
     }
 
     .nav-brand:hover {
@@ -59,16 +46,25 @@
         cursor: pointer;
     }
 
+    .nav-links-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex: 1;
+    }
+
     .nav-pages {
         display: flex;
-        gap: 20px;
+        align-items: center;
     }
 
     .nav-pages a {
         text-decoration: none;
         color: #8F9CAE; 
+        margin-right: 30px;        
         font-size: 16px;
         transition: color 0.2s ease;
+        white-space: nowrap;
     }
 
     .nav-pages a:hover {
@@ -80,10 +76,68 @@
         color: #8F9CAE;
         font-size: 16px;
         transition: color 0.2s ease;
+        white-space: nowrap;
     }
 
     .nav-right a:hover {
         color: #F59E0B; 
+    }
+
+    .nav-toggle-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: #BDC7D4;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px;
+        transition: color 0.2s ease;
+        user-select: none;
+    }
+
+    .nav-toggle-btn:hover {
+        color: #F59E0B;
+    }
+
+    nav.mobile-view .nav-toggle-btn {
+        display: block;
+    }
+
+    nav.mobile-view .nav-links-wrapper {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #1C2130;
+        padding: 20px 30px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        border-top: 1px solid #2E374A;
+    }
+
+    nav.mobile-view .nav-links-wrapper.open {
+        display: flex;
+    }
+
+    nav.mobile-view .nav-pages {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    nav.mobile-view .nav-pages a {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    nav.mobile-view .nav-right {
+        border-top: 1px solid #2E374A;
+        padding-top: 15px;
+        width: 100%;
     }
 
     /* Main Content Split Layout */
@@ -554,16 +608,6 @@
     }
 
     @media (max-width: 480px) {
-        nav {
-            flex-direction: column;
-            gap: 10px;
-            align-items: flex-start;
-        }
-        .nav-left-group {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 8px;
-        }
         .homepage-container {
             padding-top: 130px;
         }
@@ -576,18 +620,21 @@
 <body>
 
     <header>
-        <nav>
-            <div class="nav-left-group">
-                <a href="index.html" class="nav-brand">Travis McVoy</a>
-                <div class="nav-pages">
+        <nav id="main-nav">
+            <a href="index.html" class="nav-brand">Travis McVoy</a>
+
+            <button id="nav-toggle" class="nav-toggle-btn" aria-label="Toggle Navigation">☰</button>
+
+            <div id="nav-links" class="nav-links-wrapper">
+                <div id="nav-pages-group" class="nav-pages">
                     <a href="research.html">Research</a>
                     <a href="resources.html">Resources</a>
                     <a href="cv.html">CV</a>
                 </div>
-            </div>
-            
-            <div class="nav-right">
-                <a href="other_stuffs.html">Other Stuffs</a>
+
+                <div id="nav-right-group" class="nav-right">
+                    <a href="other_stuffs.html">Other Stuffs</a>
+                </div>
             </div>
         </nav>
     </header>
@@ -679,7 +726,37 @@
     </main>
 
     <script>
-        // Centralized Reading List Matrix
+        window.addEventListener("load", function() {
+        const nav = document.getElementById('main-nav');
+        const linksWrapper = document.getElementById('nav-links');
+        const brand = document.querySelector('.nav-brand');
+        const navToggle = document.getElementById('nav-toggle');
+
+        const navPages = document.getElementById('nav-pages-group');
+        const navRight = document.getElementById('nav-right-group');
+
+        const requiredNavbarWidth = brand.offsetWidth + navPages.offsetWidth + navRight.offsetWidth + 140;
+
+        function handleNavbarResize() {
+            if (window.innerWidth <= requiredNavbarWidth) {
+                nav.classList.add('mobile-view');
+            } else {
+                nav.classList.remove('mobile-view');
+                linksWrapper.classList.remove('open');
+                navToggle.innerHTML = "☰";
+            }
+        }
+
+        navToggle.addEventListener('click', function() {
+            const isOpen = linksWrapper.classList.toggle('open');
+            navToggle.innerHTML = isOpen ? "✕" : "☰";
+        });
+
+        window.addEventListener('resize', handleNavbarResize);
+        handleNavbarResize();
+    });
+
+    // Centralized Reading List Matrix
         const papersDatabase = [
             {
                 title: "Wildfire smoke exposure and mortality burden in the USA under climate change",
