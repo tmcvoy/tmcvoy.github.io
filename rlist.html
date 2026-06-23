@@ -17,6 +17,14 @@
         line-height: 1.6;
     }
 
+    /* header {
+        position: fixed;   
+        top: 0;            
+        left: 0;           
+        right: 0;          
+        z-index: 1000;     
+    } */
+
     h1, h2, h3 {
         color: #BDC7D4;           
     }
@@ -115,7 +123,7 @@
         padding: 20px 30px;
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
         border-top: 1px solid #2E374A;
-        z-index: 1005;
+        z-index: 1005; /* this makes navbar display on top of TOC, rather than other way around */
     }
 
     nav.mobile-view .nav-links-wrapper.open {
@@ -715,6 +723,11 @@
                             needed and what is currently possible?
                         </li>
                     </ul>
+                    <!-- <p><b>Note:</b> I star (&starf;) papers/projects that align
+                        with my goals, either for technique, outcomes, or even
+                        just writing quality.  The point of this is to assist
+                        future collaborators in assessing fit.
+                    </p> -->
                 </div>
                 
                 <div class="header-divider"></div>
@@ -830,11 +843,13 @@
                 url: "https://htdatalab.stanford.edu/projects/using-ai-detect-human-trafficking-space-brazilian-amazon",
                 topic: ["Preventing Human Trafficking"],
                 lab: ["HT Data Lab"], 
-                commentary: `For security/privacy reasons, this project does not 
-                have an affiliated publication. It was, however, presented as a 
-                job talk during my BA; here is a summary of what I learned from the talk.<br><br>
+                commentary: `I could not find a publication for this project; I 
+                assume this is for security reasons, because their model is deployed. 
+                This project was, however, presented as a 
+                job talk during my BA; it is one of the best talks I have ever seen.
+                <br><br>
                 <ul>
-                    <li><b>Summary:</b> Charcoal can be used as a 
+                    <li><b>Project Summary:</b> Charcoal can be used as a 
                     <a href="https://www.sciencedirect.com/science/article/abs/pii/S0960148123005116" 
                     target="_blank">fuel source</a> in the steel industry, and 
                     is produced at kiln sites in 
@@ -844,7 +859,7 @@
                     target="_blank">traffick workers.</a> A detection tool, 
                     <a href="https://htdatalab.stanford.edu/projects/using-ai-detect-human-trafficking-space-brazilian-amazon" 
                     target="_blank">ChAR</a>, was developed via neural networks 
-                    (probably CNNs?) to recognize these sites in satellite image 
+                    to recognize these sites in satellite image 
                     data, enabling authorities to locate and inspect nearly 
                     <a href="https://htdatalab.stanford.edu/" target="_blank">200 
                     sites</a> in the last few years.</li><br>
@@ -861,28 +876,28 @@
                         human trafficking elsewhere in the world.</li>
                 </ul>`
             },
-            // {
-            //     title: "Generative AI Against Poaching: Latent Composite Flow Matching for Wildlife Conservation",
-            //     authors: "Lingkai Kong, Haichuan Wang, Charles A. Emogor, Vincent Borsch-Supan,  Lily Xu, Milind Tambe",
-            //     venue: "AAAI, 2026",
-            //     url: "https://arxiv.org/pdf/2508.14342",
-            //     topic: ["Wildlife Conservation"],
-            //     lab: ["Teamcore"],
-            //     commentary: `Remark: People have suggested this paper to me.  I 
-            //     will read it at some point.  Note though, I generally do not 
-            //     support phrasing \"Generative AI\" as if it will save wildlife.
-            //     <br><br/>
+            {
+                title: "Generative AI Against Poaching: Latent Composite Flow Matching for Wildlife Conservation",
+                authors: "Lingkai Kong, Haichuan Wang, Charles A. Emogor, Vincent Borsch-Supan,  Lily Xu, Milind Tambe",
+                venue: "AAAI, 2026",
+                url: "https://arxiv.org/pdf/2508.14342",
+                topic: ["Wildlife Conservation"],
+                lab: ["Teamcore"],
+                commentary: `Remark: People have suggested this paper to me.  I 
+                will read it at some point.  Note though, I generally do not 
+                support phrasing \"Generative AI\" as if it will save wildlife.
+                <br><br/>
                 
-            //     While I suspect the model in this paper is nothing like the
-            //     models affliated with the tech oligarchs in favor of data 
-            //     centers, the fact remains that when the public hears the term
-            //     \"AI\", they are most likely thinking GPT, Gemini etc.  The 
-            //     problem with this is that someone lobbying for data centers 
-            //     can spread propaganda about how they will actually be \"good\"
-            //     for the environment and cite papers with titles like this one.
-            //     I think that would be an outrageous abuse of citations, but that
-            //     is the world we live in.`
-            // },
+                While I suspect the model in this paper is nothing like the
+                models affliated with the tech oligarchs in favor of data 
+                centers, the fact remains that when the public hears the term
+                \"AI\", they are most likely thinking GPT, Gemini etc.  The 
+                problem with this is that someone lobbying for data centers 
+                can spread propaganda about how they will actually be \"good\"
+                for the environment and cite papers with titles like this one.
+                I think that would be an outrageous abuse of citations, but that
+                is the world we live in.`
+            },
             {
                 title: "Robust Optimization with Diffusion Models for Green Security",
                 authors: "Lingkai Kong, Haichuan Wang, Yuqi Pan, Cheol Woo Kim, <br>Mingxiao Song, Alayna Nguyen, Tonghan Wang, Haifeng Xu, Milind Tambe",
