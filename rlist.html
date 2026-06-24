@@ -5,54 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading List - Travis McVoy</title>
 
-    <script>
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        if (savedTheme === 'light') {
-            document.documentElement.classList.add('light-mode');
-        }
-    </script>
-
     <style>
-    :root {
-        --bg-color: #131722; 
-        --text-color: #8F9CAE;           
-        --heading-color: #BDC7D4;           
-        --nav-bg: #1C2130; 
-        --border-color: #2E374A; 
-        --box-bg: #1C2130;
-        --switch-pill-bg: #2E374A;
-        --meta-color: #5F738E;
-        --hover-color: #F59E0B; 
-        --link-color: #b87427;
-    }
-
-    :root.light-mode {
-        --bg-color: #FAF9F6; 
-        --text-color: #434850;           
-        --heading-color: #1C1F24;           
-        --nav-bg: #FFFFFF; 
-        --border-color: #E6E8EA; 
-        --box-bg: #FFFFFF;
-        --switch-pill-bg: #E6E8EA;
-        --meta-color: #767F8D;
-        --hover-color: #EA580C; 
-        --link-color: #9A3412;
-    }
-
+    /* Global Styles */
     body {
         font-family: sans-serif; 
         margin: 0;
         padding: 0;
-        background-color: var(--bg-color); 
-        color: var(--text-color);           
+        background-color: #131722; 
+        color: #8F9CAE;           
         font-size: 16px;          
         line-height: 1.6;
-        transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     h1, h2, h3 {
-        color: var(--heading-color); 
-        transition: color 0.25s ease;
+        color: #BDC7D4;           
     }
 
     nav {
@@ -60,16 +26,15 @@
         justify-content: space-between; 
         align-items: center;
         padding: 14px 30px;        
-        background-color: var(--nav-bg); 
+        background-color: #1C2130; 
         box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4); 
         position: relative;
-        transition: background-color 0.25s ease;
     }
 
     .nav-brand {
         font-weight: bold;
         text-decoration: none;
-        color: var(--heading-color); 
+        color: #BDC7D4; 
         margin-right: 50px;        
         font-size: 18px;
         transition: color 0.2s ease; 
@@ -77,7 +42,7 @@
     }
 
     .nav-brand:hover {
-        color: var(--hover-color); 
+        color: #F59E0B; 
         cursor: pointer;
     }
 
@@ -95,7 +60,7 @@
 
     .nav-pages a {
         text-decoration: none;
-        color: var(--text-color); 
+        color: #8F9CAE; 
         margin-right: 30px;        
         font-size: 16px;
         transition: color 0.2s ease;
@@ -103,61 +68,26 @@
     }
 
     .nav-pages a:hover {
-        color: var(--hover-color); 
-    }
-
-    .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 16px;
+        color: #F59E0B; 
     }
 
     .nav-right a {
         text-decoration: none;
-        color: var(--text-color);
+        color: #8F9CAE;
         font-size: 16px;
         transition: color 0.2s ease;
         white-space: nowrap;
     }
 
     .nav-right a:hover {
-        color: var(--hover-color); 
+        color: #F59E0B; 
     }
-
-    .theme-toggle-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 4px;
-        color: var(--text-color);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition: color 0.2s ease, transform 0.2s ease;
-    }
-
-    .theme-toggle-btn:hover {
-        color: var(--hover-color);
-        transform: scale(1.08);
-    }
-
-    .theme-toggle-btn svg {
-        width: 18px;
-        height: 18px;
-        fill: currentColor;
-    }
-
-    .theme-toggle-btn .moon-icon { display: none; }
-    .theme-toggle-btn .sun-icon { display: block; }
-
-    :root.light-mode .theme-toggle-btn .moon-icon { display: block; }
-    :root.light-mode .theme-toggle-btn .sun-icon { display: none; }
 
     .nav-toggle-btn {
         display: none;
         background: none;
         border: none;
-        color: var(--heading-color);
+        color: #BDC7D4;
         font-size: 24px;
         cursor: pointer;
         padding: 5px;
@@ -166,7 +96,7 @@
     }
 
     .nav-toggle-btn:hover {
-        color: var(--hover-color);
+        color: #F59E0B;
     }
 
     nav.mobile-view .nav-toggle-btn {
@@ -181,11 +111,10 @@
         top: 100%;
         left: 0;
         right: 0;
-        background-color: var(--nav-bg);
+        background-color: #1C2130;
         padding: 20px 30px;
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-        border-top: 1px solid var(--border-color);
-        z-index: 1005;
+        border-top: 1px solid #2E374A;
     }
 
     nav.mobile-view .nav-links-wrapper.open {
@@ -206,12 +135,12 @@
     }
 
     nav.mobile-view .nav-right {
-        border-top: 1px solid var(--border-color);
+        border-top: 1px solid #2E374A;
         padding-top: 15px;
         width: 100%;
-        justify-content: space-between;
     }
 
+    /* Main Content Split Layout */
     .homepage-container {
         display: flex; 
         max-width: 1200px;
@@ -220,26 +149,29 @@
         gap: 40px;
     }
 
+    /* Left Column Sidebar (Sticky & Dynamic Height Constrained) */
     .profile-sidebar {
         width: 250px;
         flex-shrink: 0;
         position: sticky;
         top: 95px;                
-        max-height: calc(100vh - 130px); 
+        max-height: calc(100vh - 130px); /* Never exceeds layout viewport view frame */
         display: flex;
         flex-direction: column;
     }
 
+    /* Right Column Content Panel Area */
     .main-content {
         flex: 1; 
         min-width: 0; 
         padding-top: 0px;         
     }
 
+    /* Formal Page Intro Header Rules */
     .intro-toggle-btn {
         background: none;
         border: none;
-        color: var(--meta-color);           
+        color: #5F738E;           
         font-size: 13px;
         cursor: pointer;
         padding: 0;
@@ -250,23 +182,24 @@
     }
 
     .intro-toggle-btn:hover {
-        color: var(--hover-color);
+        color: #F59E0B;
     }
 
     .intro-content {
-        color: var(--text-color);
+        color: #8F9CAE;
         font-size: 15px;
         line-height: 1.6;
     }
 
     .header-divider {
-        border-bottom: 1px solid var(--border-color); 
+        border-bottom: 1px solid #2E374A; 
         margin: 25px 0 35px 0;
     }
 
+    /* Bordered Table of Contents Content Panel Frame */
     .nav-bordered-box {
-        background-color: var(--box-bg); 
-        border: 1px solid var(--border-color); 
+        background-color: #1C2130; 
+        border: 1px solid #2E374A; 
         border-radius: 8px;
         padding: 15px;
         display: flex;
@@ -274,13 +207,12 @@
         height: auto;               
         max-height: 100%;           
         box-sizing: border-box;
-        transition: background-color 0.25s ease, border-color 0.25s ease;
     }
 
     .control-panel {
         margin-bottom: 15px;
         padding-bottom: 12px;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid #2E374A;
         flex-shrink: 0;
     }
 
@@ -288,25 +220,25 @@
         font-size: 10px;
         text-transform: uppercase;
         letter-spacing: 1px;
-        color: var(--meta-color);
+        color: #5F738E;
         margin-bottom: 8px;
         display: block;
         font-weight: bold;
     }
 
+    /* Switch Toggle Track Wrapper */
     .switch-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: var(--bg-color); 
-        border: 1px solid var(--border-color);
+        background-color: #131722; 
+        border: 1px solid #2E374A;
         border-radius: 30px;
         padding: 3px;
         position: relative;
         cursor: pointer;
         user-select: none;
         height: 24px;
-        transition: background-color 0.25s ease, border-color 0.25s ease;
     }
 
     .switch-pill {
@@ -314,9 +246,9 @@
         top: 3px;
         bottom: 3px;
         width: calc(50% - 3px);
-        background-color: var(--switch-pill-bg); 
+        background-color: #2E374A; 
         border-radius: 20px;
-        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.25s ease;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 1;
     }
 
@@ -325,13 +257,13 @@
         text-align: center;
         font-size: 11px;
         font-weight: bold;
-        color: var(--meta-color);
+        color: #5F738E;
         z-index: 2;
         transition: color 0.2s ease;
     }
 
-    .switch-container[data-view="topic"] .label-topic { color: var(--heading-color); }
-    .switch-container[data-view="lab"] .label-lab { color: var(--heading-color); }
+    .switch-container[data-view="topic"] .label-topic { color: #BDC7D4; }
+    .switch-container[data-view="lab"] .label-lab { color: #BDC7D4; }
     .switch-container[data-view="lab"] .switch-pill {
         transform: translateX(100%);
     }
@@ -340,12 +272,13 @@
         font-size: 11px;
         text-transform: uppercase;
         letter-spacing: 1px;
-        color: var(--meta-color);
+        color: #5F738E;
         margin-bottom: 8px;
         font-weight: bold;
         flex-shrink: 0;
     }
 
+    /* Scroll Frame Content Tracks */
     .toc-scroll-frame {
         flex: 1;
         overflow-y: auto;         
@@ -358,7 +291,7 @@
         width: 4px;
     }
     .toc-scroll-frame::-webkit-scrollbar-thumb {
-        background: var(--border-color);
+        background: #2E374A;
         border-radius: 4px;
     }
 
@@ -374,7 +307,7 @@
     }
 
     .toc-list a {
-        color: var(--text-color);
+        color: #8F9CAE;
         text-decoration: none;
         font-size: 13px;
         display: block;
@@ -385,21 +318,23 @@
     }
 
     .toc-list a:hover {
-        color: var(--hover-color);
+        color: #F59E0B;
     }
 
+    /* Deep Subsections Tree Layout Configurations */
     .toc-sub-list {
         list-style: none;
         padding-left: 12px;
         margin: 2px 0 6px 0;
-        border-left: 1px solid var(--border-color);
+        border-left: 1px solid #2E374A;
     }
 
     .toc-sub-list a {
         font-size: 12px;
-        color: var(--meta-color);
+        color: #5F738E;
     }
 
+    /* Primary Heading Sub-Description Toggles */
     .section-desc-container {
         margin-top: -10px;
         margin-bottom: 25px;
@@ -407,22 +342,24 @@
 
     .section-desc-text {
         font-size: 14.5px;
-        color: var(--text-color);
+        color: #8F9CAE;
         line-height: 1.5;
         margin: 5px 0 0 0;
     }
 
+    /* Mobile Accordion Component Outer Wrapper Box (Hidden on Desktop) */
     .mobile-accordion-wrapper {
         display: none;
     }
 
+    /* Isolated Tasteful Floating Action Button (FAB) */
     .back-to-top-fab {
         position: fixed;
         bottom: 30px;
         right: 30px;
-        background-color: var(--box-bg);
-        border: 1px solid var(--border-color);
-        color: var(--heading-color);
+        background-color: #1C2130;
+        border: 1px solid #2E374A;
+        color: #BDC7D4;
         padding: 10px 16px;
         border-radius: 30px;
         text-decoration: none;
@@ -440,8 +377,8 @@
     }
 
     .back-to-top-fab:hover {
-        color: var(--hover-color);
-        border-color: var(--hover-color);
+        color: #F59E0B;
+        border-color: #F59E0B;
         transform: translateY(-2px);
     }
 
@@ -450,6 +387,7 @@
         visibility: visible;
     }
 
+    /* 5. Reading List Item Structures */
     .reading-group {
         margin-bottom: 50px;
         scroll-margin-top: 105px; 
@@ -457,7 +395,7 @@
 
     .reading-group h2 {
         margin-top: 0;
-        border-bottom: 1px solid var(--nav-bg);
+        border-bottom: 1px solid #1C2130;
         padding-bottom: 8px;
         margin-bottom: 20px;
     }
@@ -471,9 +409,9 @@
     .reading-subsection h3 {
         margin-top: 0;
         margin-bottom: 15px;
-        color: var(--heading-color);
+        color: #BDC7D4;
         font-size: 18px;
-        border-bottom: 1px dashed var(--border-color);
+        border-bottom: 1px dashed #2E374A;
         padding-bottom: 4px;
     }
 
@@ -483,40 +421,41 @@
     }
 
     .paper-item::marker {
-        color: var(--border-color);
+        color: #2E374A;
     }
 
     .paper-title {
         font-weight: bold;
-        color: var(--heading-color);
+        color: #BDC7D4;
     }
 
     .paper-authors {
-        color: var(--text-color);
+        color: #8F9CAE;
         font-size: 15px;
     }
 
     .paper-meta {
-        color: var(--meta-color);
+        color: #5F738E;
         font-style: italic;
         font-size: 14px;
     }
 
+    /* Terracotta Paper Hyperlinks */
     .main-content a {
-        color: var(--link-color); 
+        color: #b87427; 
         text-decoration: none;
         transition: color 0.1s ease;
     }
 
     .main-content a:hover {
-        color: var(--hover-color);
         text-decoration: underline;
     }
 
+    /* Commentary Toggles */
     .commentary-toggle {
         background: none;
         border: none;
-        color: var(--meta-color);
+        color: #5F738E;
         font-size: 13px;
         cursor: pointer;
         padding: 0;
@@ -526,19 +465,23 @@
     }
 
     .commentary-toggle:hover {
-        color: var(--link-color);
+        color: #b87427;
     }
 
     .commentary-box {
         margin-top: 10px;
         padding: 12px 16px;
-        background-color: var(--box-bg);
-        border-left: 3px solid var(--link-color);
+        background-color: #1C2130;
+        border-left: 3px solid #b87427;
         border-radius: 0 4px 4px 0;
         font-size: 14.5px;
-        color: var(--heading-color);
+        color: #BDC7D4;
         display: none; 
     }
+
+    /* =========================================================
+       6. MOBILE AND INTERFACE RESPONSIVENESS OVERRIDES
+       ========================================================= */
 
     @media (max-width: 960px), (max-height: 400px) {
         nav {
@@ -572,8 +515,8 @@
         }
 
         .control-panel {
-            background-color: var(--box-bg);
-            border: 1px solid var(--border-color);
+            background-color: #1C2130;
+            border: 1px solid #2E374A;
             border-radius: 6px;
             padding: 12px;
             margin-bottom: 10px;
@@ -585,8 +528,8 @@
 
         .mobile-accordion-wrapper {
             display: block;
-            background-color: var(--box-bg);
-            border: 1px solid var(--border-color);
+            background-color: #1C2130;
+            border: 1px solid #2E374A;
             border-radius: 6px;
             overflow: hidden; 
             margin-bottom: 10px;
@@ -596,8 +539,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: var(--box-bg);
-            color: var(--heading-color);
+            background-color: #1C2130;
+            color: #BDC7D4;
             padding: 12px;
             font-size: 13px;
             font-weight: bold;
@@ -617,12 +560,12 @@
         }
 
         .mobile-toc-accordion-trigger.active {
-            border-bottom: 1px solid var(--bg-color); 
+            border-bottom: 1px solid #131722; 
         }
 
         .toc-scroll-frame {
             display: none;
-            background-color: var(--box-bg);
+            background-color: #1C2130;
             padding: 10px 15px;
             border: none; 
             max-height: 250px;
@@ -635,7 +578,7 @@
 
         .toc-list li {
             padding: 4px 0;
-            border-bottom: 1px solid var(--bg-color);
+            border-bottom: 1px solid #131722;
         }
         
         .toc-list li:last-child {
@@ -644,7 +587,7 @@
         }
 
         .toc-sub-list {
-            border-left: 1px dashed var(--border-color);
+            border-left: 1px dashed #2E374A;
             padding-left: 10px;
             margin-top: 4px;
         }
@@ -691,11 +634,6 @@
 
                 <div id="nav-right-group" class="nav-right">
                     <a href="other_stuffs.html">Other Stuffs</a>
-                    
-                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
-                        <svg class="sun-icon" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41zM7.05 18.01c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41z"/></svg>
-                        <svg class="moon-icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-                    </button>
                 </div>
             </div>
         </nav>
@@ -816,233 +754,217 @@
 
         window.addEventListener('resize', handleNavbarResize);
         handleNavbarResize();
-
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        themeToggleBtn.addEventListener('click', function() {
-            document.documentElement.classList.toggle('light-mode');
-            
-            const layoutState = document.documentElement.classList.contains('light-mode') ? 'light' : 'dark';
-            localStorage.setItem('theme', layoutState);
-        });
     });
 
-        // Centralized Reading List Matrix
-        const papersDatabase = [
-            {
-                title: "Wildfire smoke exposure and mortality burden in the USA under climate change",
-                authors: "Minghao Qiu, Marshall Burk, et al.",
-                venue: "Nature, 2025",
-                url: "https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/691cb2cb44e5df20632ab58b/1763488460004/QiuEtAl2025_Nature.pdf",
-                topic: ["Climate Change | Wildfire"],
-                lab: ["ECHO"],
-                commentary: ""
-            },
-            {
-                title: "Understanding and Addressing Temperature Impacts on Mortality",
-                authors: "Marshall Burke, Andrew Wilson, et al.",
-                venue: "NBER Working Paper, 2025",
-                url: "https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/68e349719fd59426375c97dc/1759725937403/BurkeWilsonEtAl_2025_NBER.pdf",
-                topic: ["Climate Change | Temperature"],
-                lab: ["ECHO"],
-                commentary: `This paper is part of the 
-                <a href="https://adaptationatlas.org/" 
-                target="_blank">Adaption Atlas</a> project, an impressive 
-                collection of interactive maps and suggested interventions for
-                extreme heat, cold, and smoke exposure due to climate change.
-                
-                <br><br> I do not have the background in cognitive science to 
-                explain why I think this project is so important, but I do 
-                think it is an amazing project. Speaking informally, I suspect
-                there is research that argues that plots like Adaption Atlas contain the
-                optimal combination (from an engagement and reliability perspective) 
-                of technically grounded yet easy to understand.
-                
-                <br><br> Remark: This paper extends much further than just wildfire.
-                At some point I will probably expand my search to broader climate change issues,
-                and when I do, I suspect I will move this paper to a different category.`
-            },
-            {
-                title: "Growing wildfire-derived PM2.5 across the contiguous U.S. and implications for air quality regulation",
-                authors: "Marissa Childs, Mariana Martins, Andrew Wilson, Sam Heft-Neal, Minghao Qiu, Marshall Burke",
-                venue: "EarthArxiv Preprint, 2024",
-                url: "https://www.dropbox.com/scl/fi/mx3pn3vjlnsfuf4xtg5et/WildfirePM2024.pdf?rlkey=4wdlggqfnjn97avmyf5jepy3n&e=2&dl=0",
-                topic: ["Climate Change | Wildfire"],
-                lab: ["ECHO"],
-                commentary: ""
-            },
-            {
-                title: "The Air Pollution Benefits of Low Severity Fire",
-                authors: "Iván Higuera-Mendieta and Marshall Burke",
-                venue: "Science, 2026",
-                url: "https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/6a2b29058c2682319e029704/1781213447241/HigueraMendietaBurke_Science_2026.pdf", 
-                topic: ["Climate Change | Wildfire"],
-                lab: ["ECHO"],
-                commentary: `There are supplementary materials for this paper including 
-                    <a href="https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/6a2b2945e33b3d56578d1f5b/1781213520770/science.aea2490_sm.pdf" 
-                    target="_blank">commentary on materials and methods</a> 
-                    and <a href="https://github.com/echolab-stanford/prescribed_fires" 
-                    target="_blank">a github repo</a> for replication data.` 
-            },
-            {
-                title: "A satellite foundation model for improved wealth monitoring",
-                authors: "Zhuo Zheng, Ivan Higuera-Mendieta, et al.",
-                venue: "arXiv Preprint, 2026",
-                url: "https://arxiv.org/pdf/2604.23166",
-                topic: ["Wealth Inequality"],
-                lab: ["ECHO"],
-                commentary: ""
-            },
-            {
-                title: "Charcoal Anti-Trafficking Reconnaissance",
-                authors: "Human Trafficking Data Lab",
-                venue: "Stanford University Project Hub",
-                url: "https://htdatalab.stanford.edu/projects/using-ai-detect-human-trafficking-space-brazilian-amazon",
-                topic: ["Preventing Human Trafficking"],
-                lab: ["HT Data Lab"], 
-                commentary: `I could not find a publication for this project; I 
-                assume this is for security reasons, because their model is deployed. 
-                This project was, however, presented as a 
-                job talk during my BA; it is one of the best talks I have ever seen.
-                <br><br>
-                <ul>
-                    <li><b>Project Summary:</b> Charcoal can be used as a 
-                    <a href="https://www.sciencedirect.com/science/article/abs/pii/S0960148123005116" 
-                    target="_blank">fuel source</a> in the steel industry, and 
-                    is produced at kiln sites in 
-                    <a href="https://www.sciencedirect.com/science/article/abs/pii/S0013935112001120" 
-                    target="_blank">Brazil</a>. These sites are exploitative in 
-                    nature, and are used to <a href="https://storymaps.arcgis.com/stories/d63b29355df6450bb6a059679c73d06d#ref-n-o43kvC" 
-                    target="_blank">traffick workers.</a> A detection tool, 
-                    <a href="https://htdatalab.stanford.edu/projects/using-ai-detect-human-trafficking-space-brazilian-amazon" 
-                    target="_blank">ChAR</a>, was developed via neural networks 
-                    to recognize these sites in satellite image 
-                    data, enabling authorities to locate and inspect nearly 
-                    <a href="https://htdatalab.stanford.edu/" target="_blank">200 
-                    sites</a> in the last few years.</li><br>
+    // Centralized Reading List Matrix
+    const papersDatabase = [
+        {
+            title: "Wildfire smoke exposure and mortality burden in the USA under climate change",
+            authors: "Minghao Qiu, Marshall Burk, et al.",
+            venue: "Nature, 2025",
+            url: "https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/691cb2cb44e5df20632ab58b/1763488460004/QiuEtAl2025_Nature.pdf",
+            topic: ["Climate Change | Wildfire"],
+            lab: ["ECHO"],
+            commentary: ""
+        },
+        {
+            title: "Understanding and Addressing Temperature Impacts on Mortality",
+            authors: "Marshall Burke, Andrew Wilson, et al.",
+            venue: "NBER Working Paper, 2025",
+            url: "https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/68e349719fd59426375c97dc/1759725937403/BurkeWilsonEtAl_2025_NBER.pdf",
+            topic: ["Climate Change | Temperature"],
+            lab: ["ECHO"],
+            commentary: `This paper is part of the 
+            <a href="https://adaptationatlas.org/" 
+            target="_blank">Adaption Atlas</a> project, an impressive 
+            collection of interactive maps and suggested interventions for
+            extreme heat, cold, and smoke exposure due to climate change.
+            
+            TODO: I need to update this commentary now that I have read the paper
+            in more depth`
+        },
+        {
+            title: "Growing wildfire-derived PM2.5 across the contiguous U.S. and implications for air quality regulation",
+            authors: "Marissa Childs, Mariana Martins, Andrew Wilson, Sam Heft-Neal, Minghao Qiu, Marshall Burke",
+            venue: "EarthArxiv Preprint, 2024",
+            url: "https://www.dropbox.com/scl/fi/mx3pn3vjlnsfuf4xtg5et/WildfirePM2024.pdf?rlkey=4wdlggqfnjn97avmyf5jepy3n&e=2&dl=0",
+            topic: ["Climate Change | Wildfire"],
+            lab: ["ECHO"],
+            commentary: ""
+        },
+        {
+            title: "The Air Pollution Benefits of Low Severity Fire",
+            authors: "Iván Higuera-Mendieta and Marshall Burke",
+            venue: "Science, 2026",
+            url: "https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/6a2b29058c2682319e029704/1781213447241/HigueraMendietaBurke_Science_2026.pdf", 
+            topic: ["Climate Change | Wildfire"],
+            lab: ["ECHO"],
+            commentary: `There are supplementary materials for this paper including 
+                <a href="https://static1.squarespace.com/static/6119eb38427be163876f70ec/t/6a2b2945e33b3d56578d1f5b/1781213520770/science.aea2490_sm.pdf" 
+                target="_blank">commentary on materials and methods</a> 
+                and <a href="https://github.com/echolab-stanford/prescribed_fires" 
+                target="_blank">a github repo</a> for replication data.` 
+        },
+        {
+            title: "A satellite foundation model for improved wealth monitoring",
+            authors: "Zhuo Zheng, Ivan Higuera-Mendieta, et al.",
+            venue: "arXiv Preprint, 2026",
+            url: "https://arxiv.org/pdf/2604.23166",
+            topic: ["Wealth Inequality"],
+            lab: ["ECHO"],
+            commentary: ""
+        },
+        {
+            title: "Charcoal Anti-Trafficking Reconnaissance",
+            authors: "Human Trafficking Data Lab",
+            venue: "Stanford University Project Hub",
+            url: "https://htdatalab.stanford.edu/projects/using-ai-detect-human-trafficking-space-brazilian-amazon",
+            topic: ["Preventing Human Trafficking"],
+            lab: ["HT Data Lab"], 
+            commentary: `I could not find a publication for this project; I 
+            assume this is for security reasons, because their model is deployed. 
+            This project was, however, presented as a 
+            job talk during my BA; it is one of the best talks I have ever seen.
+            <br><br>
+            <ul>
+                <li><b>Project Summary:</b> Charcoal can be used as a 
+                <a href="https://www.sciencedirect.com/science/article/abs/pii/S0960148123005116" 
+                target="_blank">fuel source</a> in the steel industry, and 
+                is produced at kiln sites in 
+                <a href="https://www.sciencedirect.com/science/article/abs/pii/S0013935112001120" 
+                target="_blank">Brazil</a>. These sites are exploitative in 
+                nature, and are used to <a href="https://storymaps.arcgis.com/stories/d63b29355df6450bb6a059679c73d06d#ref-n-o43kvC" 
+                target="_blank">traffick workers.</a> A detection tool, 
+                <a href="https://htdatalab.stanford.edu/projects/using-ai-detect-human-trafficking-space-brazilian-amazon" 
+                target="_blank">ChAR</a>, was developed via neural networks 
+                to recognize these sites in satellite image 
+                data, enabling authorities to locate and inspect nearly 
+                <a href="https://htdatalab.stanford.edu/" target="_blank">200 
+                sites</a> in the last few years.</li><br>
 
-                    <li><b>Possible Future Directions:</b> This work suggests the 
-                        possibility of other preventative measures using a similar 
-                        framework. My question, then, is can we identify other 
-                        activities with a physical, observable footprint that 
-                        are correlated with illicit behavior, and if so, can said 
-                        behavior be detected (and subsequently prevented) through 
-                        the analysis of geospatial data? In other words, 
-                        perhaps we could try to extend this analysis to illegal 
-                        deforestation, fishing violations, poaching, or even 
-                        human trafficking elsewhere in the world.</li>
-                </ul>`
-            },
-            {
-                title: "Generative AI Against Poaching: Latent Composite Flow Matching for Wildlife Conservation",
-                authors: "Lingkai Kong, Haichuan Wang, Charles A. Emogor, Vincent Borsch-Supan,  Lily Xu, Milind Tambe",
-                venue: "AAAI, 2026",
-                url: "https://arxiv.org/pdf/2508.14342",
-                topic: ["Wildlife Conservation"],
-                lab: ["Teamcore"],
-                commentary: `Remark: I don't think this paper has much (or maybe
-                really anything) to do with what the general public thinks of
-                when they think of \"Generative AI\" (e.g. Gemini, ChatGPT, etc.)`
-            },
-            {
-                title: "Robust Optimization with Diffusion Models for Green Security",
-                authors: "Lingkai Kong, Haichuan Wang, Yuqi Pan, Cheol Woo Kim, <br>Mingxiao Song, Alayna Nguyen, Tonghan Wang, Haifeng Xu, Milind Tambe",
-                venue: "UAI, 2025",
-                url: "https://arxiv.org/pdf/2503.05730",
-                topic: ["Wildlife Conservation"],
-                lab: ["Teamcore"],
-                commentary: ""
-            },
-            {
-                title: "Find Rhinos without Finding Rhinos: Active Learning with Multimodal Imagery of South African Rhino Habitats",
-                authors: "Lucia Gordon, Nikhil Behari, et al.",
-                venue: "IJCAI Proceedings, 2023",
-                url: "https://www.ijcai.org/proceedings/2023/0663.pdf",
-                topic: ["Wildlife Conservation"],
-                lab: ["Teamcore"],
-                commentary: ""
-            },
-            {
-                title: "A Bayesian approach to the global estimation of maternal mortality",
-                authors: "Leontine Alkema, Sanqian Zhang, Doris Chou, Alison Gemmill, <br>Ann-Beth Moller, Doris Ma Fa, Lale Say, Colin Mathers, Daniel Hogan",
-                venue: "Annals of Applied Statistics, 2017",
-                url: "https://arxiv.org/pdf/1511.03330",
-                topic: ["Women's Health | Maternal Mortality Rates"],
-                lab: ["Alkema Lab"],
-                commentary: ""
-            },
-            {
-                title: "Reduced-Rank Outcome Compression for Causal Policy Optimization",
-                authors: "Ezinne Nwankwo, Michael I. Jordan, Angela Zhou",
-                venue: "Transactions on Machine Learning Research, 2026",
-                url: "https://openreview.net/pdf?id=WQhOaY4yPC",
-                topic: ["Methods \& Theory | Causal Inference"],
-                lab: ["Angela Zhou (USC)"],
-                commentary: ""
-            },
-            {
-                title: "Synthetic Control Analysis of the Short-Term Impact of New York State\’s Bail Elimination Act on Aggregate Crime",
-                authors: "Angela Zhou et al.",
-                venue: "Statistics and Public Policy, 2023",
-                url: "https://arxiv.org/pdf/2111.08664",
-                topic: ["Public Policy"],
-                lab: ["Angela Zhou (USC)"],
-                commentary: ""
-            },
-            {
-                title: "On the VC dimension of deep group convolutional neural networks",
-                authors: "Anna Sepliarskaia, Sophie Langer, Johannes Schmidt-Hieber",
-                venue: "NeurIPS, 2025 (Poster)",
-                url: "https://openreview.net/pdf?id=Y9nxhKcgAA",
-                topic: ["Methods \& Theory | CNNs"],
-                lab: ["To Sort"],
-                commentary: "Satellite imagery is emerging as a theme among some of the papers above, and I presume CNNs may be useful generally for satellite imagery (but who knows, maybe visual transformers or other architectures are better these days) and this made me wonder whether anyone had determined if CNNs have finite sample complexity in general; sample complexity could be useful to know when considering problems in which there is a high cost of gathering data for models. If I ever actually come back to this topic, it might be better to start with the paper \"How Many Samples are Needed to Estimate a Convolutional or Recurrent Neural Network? \" by Du et al."
-            },
-            {
-                title: "Obtaining personalized predictions from a randomized controlled trial on Alzheimer\’s disease",
-                authors: "Dennis Shen et al.",
-                venue: "Nature, 2025",
-                url: "",
-                topic: ["General Medicine"],
-                lab: ["Dennis Shen (USC)"],
-                commentary: "This paper is freely available, but it downloads locally. If I don't forget, I will add a link." 
-            },
-            {
-                title: "Using Machine Learning to Help Vulnerable Tenants in New York City",
-                authors: "Ye and Johnson et al.",
-                venue: "COMPASS, 2019",
-                url: "https://www.rayidghani.com/wp-content/uploads/2020/09/3314344.3332484.pdf",
-                topic: ["Wealth Inequality"],
-                lab: ["Data Science For Social Good", "Rayid Ghani"],
-                commentary: ""
-            },
-            {
-                title: "Price and Prejudice: Reimbursement of Surgical Care on Male Versus Female Anatomies",
-                authors: "Madeline Penn, Donessa Colley, Pratistha Koirala, Louise King, Jocelyn Fitzgerald",
-                venue: "Journal of Women's Health, 2025",
-                url: "https://pubmed.ncbi.nlm.nih.gov/39978776/",
-                topic: ["Women's Health | Gender Bias"],
-                lab: ["To Sort"],
-                commentary: "Could not determine the home lab for this paper, but Louise King has other publications that may be of interest."
-            },
-            {
-                title: "Deploying Machine Learning Models for Public Policy: A Framework",
-                authors: "Klaus Ackermann, Joe Walsh, Adolfo De Unánue, Hareem Naveed, Andrea Navarrete Rivera, <br> Sun-Joo Lee, Jason Bennett, Michael Defoe, Crystal Cody, Lauren Haynes and Rayid Ghani",
-                venue: "Conference on Knowledge Discovery and Data Mining, 2018",
-                url: "https://dl.acm.org/doi/epdf/10.1145/3219819.3219911",
-                topic: ["Public Policy"],
-                lab: ["Rayid Ghani"],
-                commentary: ""
-            },
-            {
-                title: "Even Small Companies Can Save Lives by Reducing Emissions",
-                authors: "Daniel Baldassare, Abby Lute, Hikari Murayama, Cora Kingdon, Christopher Schwalm",
-                venue: "arXiv preprint, 2026",
-                url: "https://arxiv.org/pdf/2512.20473",
-                topic: ["Climate Change | Temperature"],
-                lab: ["Global Policy Lab"],
-                commentary: ""
-            },
-            {
+                <li><b>Possible Future Directions:</b> This work suggests the 
+                    possibility of other preventative measures using a similar 
+                    framework. My question, then, is can we identify other 
+                    activities with a physical, observable footprint that 
+                    are correlated with illicit behavior, and if so, can said 
+                    behavior be detected (and subsequently prevented) through 
+                    the analysis of geospatial data? In other words, 
+                    perhaps we could try to extend this analysis to illegal 
+                    deforestation, fishing violations, poaching, or even 
+                    human trafficking elsewhere in the world.</li>
+            </ul>`
+        },
+        {
+            title: "Generative AI Against Poaching: Latent Composite Flow Matching for Wildlife Conservation",
+            authors: "Lingkai Kong, Haichuan Wang, Charles A. Emogor, Vincent Borsch-Supan,  Lily Xu, Milind Tambe",
+            venue: "AAAI, 2026",
+            url: "https://arxiv.org/pdf/2508.14342",
+            topic: ["Wildlife Conservation"],
+            lab: ["Teamcore"],
+            commentary: `Remark: I don't think this paper has much (or maybe
+            really anything) to do with what the general public thinks of
+            when they think of \"Generative AI\" (e.g. Gemini, ChatGPT, etc.)`
+        },
+        {
+            title: "Robust Optimization with Diffusion Models for Green Security",
+            authors: "Lingkai Kong, Haichuan Wang, Yuqi Pan, Cheol Woo Kim, <br>Mingxiao Song, Alayna Nguyen, Tonghan Wang, Haifeng Xu, Milind Tambe",
+            venue: "UAI, 2025",
+            url: "https://arxiv.org/pdf/2503.05730",
+            topic: ["Wildlife Conservation"],
+            lab: ["Teamcore"],
+            commentary: ""
+        },
+        {
+            title: "Find Rhinos without Finding Rhinos: Active Learning with Multimodal Imagery of South African Rhino Habitats",
+            authors: "Lucia Gordon, Nikhil Behari, et al.",
+            venue: "IJCAI Proceedings, 2023",
+            url: "https://www.ijcai.org/proceedings/2023/0663.pdf",
+            topic: ["Wildlife Conservation"],
+            lab: ["Teamcore"],
+            commentary: ""
+        },
+        {
+            title: "A Bayesian approach to the global estimation of maternal mortality",
+            authors: "Leontine Alkema, Sanqian Zhang, Doris Chou, Alison Gemmill, <br>Ann-Beth Moller, Doris Ma Fa, Lale Say, Colin Mathers, Daniel Hogan",
+            venue: "Annals of Applied Statistics, 2017",
+            url: "https://arxiv.org/pdf/1511.03330",
+            topic: ["Women's Health | Maternal Mortality Rates"],
+            lab: ["Alkema Lab"],
+            commentary: ""
+        },
+        {
+            title: "Reduced-Rank Outcome Compression for Causal Policy Optimization",
+            authors: "Ezinne Nwankwo, Michael I. Jordan, Angela Zhou",
+            venue: "Transactions on Machine Learning Research, 2026",
+            url: "https://openreview.net/pdf?id=WQhOaY4yPC",
+            topic: ["Methods \& Theory | Causal Inference"],
+            lab: ["Angela Zhou (USC)"],
+            commentary: ""
+        },
+        {
+            title: "Synthetic Control Analysis of the Short-Term Impact of New York State\’s Bail Elimination Act on Aggregate Crime",
+            authors: "Angela Zhou et al.",
+            venue: "Statistics and Public Policy, 2023",
+            url: "https://arxiv.org/pdf/2111.08664",
+            topic: ["Public Policy"],
+            lab: ["Angela Zhou (USC)"],
+            commentary: ""
+        },
+        {
+            title: "On the VC dimension of deep group convolutional neural networks",
+            authors: "Anna Sepliarskaia, Sophie Langer, Johannes Schmidt-Hieber",
+            venue: "NeurIPS, 2025 (Poster)",
+            url: "https://openreview.net/pdf?id=Y9nxhKcgAA",
+            topic: ["Methods \& Theory | CNNs"],
+            lab: ["To Sort"],
+            commentary: "Satellite imagery is emerging as a theme among some of the papers above, and I presume CNNs may be useful generally for satellite imagery (but who knows, maybe visual transformers or other architectures are better these days) and this made me wonder whether anyone had determined if CNNs have finite sample complexity in general; sample complexity could be useful to know when considering problems in which there is a high cost of gathering data for models. If I ever actually come back to this topic, it might be better to start with the paper \"How Many Samples are Needed to Estimate a Convolutional or Recurrent Neural Network? \" by Du et al."
+        },
+        {
+            title: "Obtaining personalized predictions from a randomized controlled trial on Alzheimer\’s disease",
+            authors: "Dennis Shen et al.",
+            venue: "Nature, 2025",
+            url: "",
+            topic: ["General Medicine"],
+            lab: ["Dennis Shen (USC)"],
+            commentary: "This paper is freely available, but it downloads locally. If I don't forget, I will add a link." 
+        },
+        {
+            title: "Using Machine Learning to Help Vulnerable Tenants in New York City",
+            authors: "Ye and Johnson et al.",
+            venue: "COMPASS, 2019",
+            url: "https://www.rayidghani.com/wp-content/uploads/2020/09/3314344.3332484.pdf",
+            topic: ["Wealth Inequality"],
+            lab: ["Data Science For Social Good", "Rayid Ghani"],
+            commentary: ""
+        },
+        {
+            title: "Price and Prejudice: Reimbursement of Surgical Care on Male Versus Female Anatomies",
+            authors: "Madeline Penn, Donessa Colley, Pratistha Koirala, Louise King, Jocelyn Fitzgerald",
+            venue: "Journal of Women's Health, 2025",
+            url: "https://pubmed.ncbi.nlm.nih.gov/39978776/",
+            topic: ["Women's Health | Gender Bias"],
+            lab: ["To Sort"],
+            commentary: "Could not determine the home lab for this paper, but Louise King has other publications that may be of interest."
+        },
+        {
+            title: "Deploying Machine Learning Models for Public Policy: A Framework",
+            authors: "Klaus Ackermann, Joe Walsh, Adolfo De Unánue, Hareem Naveed, Andrea Navarrete Rivera, <br> Sun-Joo Lee, Jason Bennett, Michael Defoe, Crystal Cody, Lauren Haynes and Rayid Ghani",
+            venue: "Conference on Knowledge Discovery and Data Mining, 2018",
+            url: "https://dl.acm.org/doi/epdf/10.1145/3219819.3219911",
+            topic: ["Public Policy"],
+            lab: ["Rayid Ghani"],
+            commentary: ""
+        },
+        {
+            title: "Even Small Companies Can Save Lives by Reducing Emissions",
+            authors: "Daniel Baldassare, Abby Lute, Hikari Murayama, Cora Kingdon, Christopher Schwalm",
+            venue: "arXiv preprint, 2026",
+            url: "https://arxiv.org/pdf/2512.20473",
+            topic: ["Climate Change | Temperature"],
+            lab: ["Global Policy Lab"],
+            commentary: ""
+        },
+        {
             title: "Machine Learning Predicts Which Rivers, Streams, and Wetlands the Clean Water Act Regulates",
             authors: "Simon Greenhill, Joseph S. Shapiro, et. al",
             venue: "Science, 2024",
@@ -1074,7 +996,7 @@
             read this paper more closely, I should maybe use that copy...sad.  
             The linked version is prettier.`
         }
-        ];
+    ];
 
     // {
     //         title: "",
@@ -1086,40 +1008,38 @@
     //         commentary: ""
     // }
 
-        // Centralized Metadata Index Mapping for Subsectional Primary Headings Description Text Nodes
-        const primaryTopicDescriptions = {
-            "Women's Health": "",
-            "General Medicine": "",
-            "Methods \& Theory": "Note: generally speaking, I do not intend to do research in general method development. Rather, I want to apply/modify existing methods to specific problems in a way that serves underrepresented or vulnerable groups/ecosystems. To do so, I will need to stay informed on what methods work well and on what kinds of problems, and that's what this section of the database is for.  <br><br> Edit: SIML is a bit of an outlier.  I've seen some really interesting papers related to SIML, but I also don't know if I want to work on SIML development in isolation unless I can somehow ensure that my methods will not be used to justify/develop mass surveillance."
-        };
+    // Centralized Metadata Index Mapping for Subsectional Primary Headings Description Text Nodes
+    const primaryTopicDescriptions = {
+        "Women's Health": "",
+        "General Medicine": "",
+        "Methods \& Theory": "Note: generally speaking, I do not intend to do research in general method development. Rather, I want to apply/modify existing methods to specific problems in a way that serves underrepresented or vulnerable groups/ecosystems. To do so, I will need to stay informed on what methods work well and on what kinds of problems, and that's what this section of the database is for.  <br><br> Edit: SIML is a bit of an outlier.  I've seen some really interesting papers related to SIML, but I also don't know if I want to work on SIML development in isolation unless I can somehow ensure that my methods will not be used to justify/develop mass surveillance."
+    };
 
-        const customTopicOrder = [
-            "Preventing Human Trafficking",
-            "Women's Health",
-            "Climate Change",
-            "Public Policy",
-            "Wealth Inequality",
-            "International Accountability and Regulation",
-            "Wildlife Conservation",
-            "General Medicine",
-            "Methods \& Theory"
-        ];
+    const customTopicOrder = [
+        "Preventing Human Trafficking",
+        "Women's Health",
+        "Climate Change",
+        "Public Policy",
+        "Wealth Inequality",
+        "International Accountability and Regulation",
+        "Wildlife Conservation",
+        "General Medicine",
+        "Methods \& Theory"
+    ];
 
-        const customLabOrder = [
-            "ECHO",
-            "Global Policy Lab",
-            "HT Data Lab",
-            "Rayid Ghani",
-            "Data Science For Social Good",
-            "Teamcore",
-            "Alkema Lab",
-            "FXB Center",
-            "Angela Zhou (USC)",
-            "Dennis Shen (USC)",
-            "To sort"
-        ];
-
-        
+    const customLabOrder = [
+        "ECHO",
+        "Global Policy Lab",
+        "HT Data Lab",
+        "Rayid Ghani",
+        "Data Science For Social Good",
+        "Teamcore",
+        "Alkema Lab",
+        "FXB Center",
+        "Angela Zhou (USC)",
+        "Dennis Shen (USC)",
+        "To sort"
+    ];
 
         let currentView = 'topic'; 
 
@@ -1152,7 +1072,7 @@
                 const uniqueBoxId = `commentary-${uniqueGroupIndex}-${pIndex}`;
                 const titleHTML = item.url 
                     ? `<a href="${item.url}" target="_blank">${item.title}</a>`
-                    : `${item.title} <span style="font-size:12px; color: var(--meta-color); font-weight:normal; font-style:italic;">(Link pending)</span>`;
+                    : `${item.title} <span style="font-size:12px; color:#5F738E; font-weight:normal; font-style:italic;">(Link pending)</span>`;
 
                 const hasCommentary = item.commentary && item.commentary.trim() !== "" && item.commentary !== "TODO";
 
