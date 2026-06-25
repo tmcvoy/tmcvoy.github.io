@@ -7,7 +7,42 @@
 
     <style>
     /* Global Styles */
-    body {
+
+    /* Resembles al-folio theme, which I like */
+    html, body {
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 400;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #131722; 
+        color: #8F9CAE;
+        /* font-size: 18px; */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: inherit;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: #BDC7D4;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    /* p, li {
+        max-width: 68ch;
+    } */
+
+    code, pre, kbd, samp {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    /* body {
         font-family: sans-serif; 
         margin: 0;
         padding: 0;
@@ -19,7 +54,7 @@
 
     h1, h2, h3 {
         color: #BDC7D4;           
-    }
+    } */
 
     nav {
         display: flex;
@@ -363,7 +398,7 @@
         padding: 10px 16px;
         border-radius: 30px;
         text-decoration: none;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: bold;
         letter-spacing: 0.5px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -864,7 +899,8 @@
             lab: ["Teamcore"],
             commentary: `Remark: I don't think this paper has much (or maybe
             really anything) to do with what the general public thinks of
-            when they think of \"Generative AI\" (e.g. Gemini, ChatGPT, etc.)`
+            when they think of \"Generative AI\" (e.g. Gemini, ChatGPT, etc.). I have
+            not yet read it extensively, though.`
         },
         {
             title: "Robust Optimization with Diffusion Models for Green Security",
@@ -981,7 +1017,7 @@
             url: "https://www.nber.org/system/files/working_papers/w34315/w34315.pdf",
             topic: ["Methods & Theory | SIML"],
             lab: ["Global Policy Lab"],
-            commentary: "Not sure if this really belongs in the methods and theory section; might move somewhere else later."
+            commentary: ""
         },
         {
             title: "Deep Learning Projects Jurisdiction of New and Proposed Clean Water Act Regulation",
@@ -996,24 +1032,150 @@
             really helpful when communicating digitally...okay when I go back and
             read this paper more closely, I should maybe use that copy...sad.  
             The linked version is prettier.`
-        }
-    ];
+        },
+        {
+            title: "Noise Pollution and Infant Health",
+            authors: "Simon Greenhill",
+            venue: "\"Job Market Paper\", 2026",
+            url: "https://simondgreenhill.github.io/Greenhill_Noise.pdf",
+            topic: ["Public Policy"],
+            lab: ["Global Policy Lab"],
+            commentary: `I have downloaded this paper in case it gets removed; 
+            it does not appear to be submitted, not really sure why.  At any 
+            rate, if someone wants to read it and the URL is not working, I can 
+            give you a copy, but I will not do so without Simon's permission.`
+        },
+        {
+            title: "Using Satellite Imagery and Deep Learning To Evaluate The Impact Of Anti-Poverty Programs",
+            authors: "Luna Yue Huang, Solomon M. Hsiang, Marco Gonzalez-Navarro",
+            venue: "NBER Working Paper, 2021",
+            url: "https://www.nber.org/system/files/working_papers/w29105/w29105.pdf",
+            topic: ["Wealth Inequality"],
+            lab: ["Global Policy Lab"],
+            commentary: "I am debating adding a satellite imagery topic.  Not sure.  We will see..."
+        } ,
+        {
+            title: "The Distribution of Environmental Damages",
+            authors: "Solomon Hsiang, Paulina Oliva, Reed Walker",
+            venue: "NBER Working Paper, 2018",
+            url: "https://www.nber.org/system/files/working_papers/w23882/w23882.pdf",
+            topic: ["Public Policy"],
+            lab: ["Global Policy Lab"],
+            commentary: ""
+        },
+        {
+            title: "Computer-vision research powers surveillance technology",
+            authors: "Pratyusha Ria Kalluri, William Agnew, Myra Cheng, Kentrell Owens, Luca Soldaini",
+            venue: "Nature, 2025",
+            url: "https://www.nature.com/articles/s41586-025-08972-6",
+            topic: ["Methods \& Theory | SIML"],
+            lab: ["Stanford NLP"],
+            commentary: `This paper might (have not read it yet) be a good 
+            example of why I want to be 
+            careful about what I do and do not contribute to in my research.
+            They find that, between the 90s and 2010s, there has been a 
+            \"fivefold increase in the number of computer-vision papers linked 
+            to downstream surveillance-enabling patents\".  I am happy to talk
+            about this more offline.
+            <br><br>
 
-    // {
-    //         title: "",
-    //         authors: "",
-    //         venue: "",
-    //         url: "",
-    //         topic: [""],
-    //         lab: [""],
-    //         commentary: ""
-    // }
+            Remark: The point of organizing by lab is that it allows me to 
+            go back and find similar papers if I liked the paper.  The Stanford
+            NLP group is huge.  Myra Cheng's website is how I found this paper.`
+        },
+        {
+            title: "From tools to thieves: Measuring and understanding public perceptions of AI through crowdsourced metaphors",
+            authors: "Myra Cheng, Angela Y. Lee, Kristina Rapuano, Kate Niederhoffer, Alex Liebscher, Jeffrey Hancock",
+            venue: "arXiv preprint, 2025",
+            url: "https://arxiv.org/pdf/2501.18045",
+            topic: ["AI Perception and Risks"],
+            lab: ["Stanford NLP"],
+            commentary: `I have not read this; just skimming the abstract, I am 
+            a bit confused.  Given the use of the word \"thieves\" I expected
+            the papers findings to be negative, but their abstract claims to
+            have results that show statistical significance of trust in AI.`
+        },
+        {
+            title: "The AI Risk Repository",
+            authors: "Peter Slattery et al.",
+            venue: "Patterns, 2026",
+            url: "https://arxiv.org/pdf/2408.12622",
+            topic: ["AI Perception and Risks"],
+            lab: ["MIT AI Risk Initiative"],
+            commentary: `TODO: I have not read this, but I really need to because
+            it would be nice to have a rigorous source to compare my own 
+            intuition about various societal, intellectual, legisilative, risks
+            (to name only a few).  It would also be nice to find some material 
+            on ethical concerns (e.g. training material).`
+        },
+        {
+            title: "\"I am the One and Only, Your Cyber BFF\": Understanding the Impact of GenAI Requires Understanding the Impact of Anthropomorphic AI",
+            authors: "Myra Cheng, Alicia DeVrio, Lisa Egede, Su Lin Blodgett, Alexandra Olteanu",
+            venue: "ICLR Blogposts, 2025",
+            url: "https://arxiv.org/pdf/2410.08526",
+            topic: ["AI Perception and Risks"],
+            lab: ["Stanford NLP"],
+            commentary: `This is not a full paper, but it is probably a good 
+            place to find some resources on anthropomorphic output.`
+        },
+        {
+            title: "Ethical and social risks of harm from Language Models",
+            authors: "Myra Cheng et al.",
+            venue: "arXiv, 2021",
+            url: "https://arxiv.org/pdf/2112.04359",
+            topic: ["AI Perception and Risks"],
+            lab: ["Google Deepmind"],
+            commentary: `When I abuse et al., I normally try to use either the 
+            corresponding author(s) or whatever the venue use to abbreviate.  In
+            this case, Myra is not the corresponding author, but she is how I 
+            found the paper. <br><br>
+            
+            Note: I encourage readers to be wary to trust papers about risk of models if the paper
+            comes from a company or maybe even a lab, whose funding/profits 
+            are dependent on public perception of the model.`
+        },
+        {
+            title: "Sycophantic AI Decreases Prosocial Intentions and Promotes Dependence",
+            authors: "Myra Cheng, Cinoo Lee, Pranav Khadpe, Sunny Yu, Dyllan Han, Dan Jurafsky",
+            venue: "Scienc, 2026",
+            url: "https://arxiv.org/pdf/2510.01395",
+            topic: ["AI Perception and Risks"],
+            lab: ["Stanford NLP"],
+            commentary: `TODO: There's also a paper on how AI use affects the brain.  It's from MIT.  I want to add that paper to the list.`
+        }
+        // {
+        //     title: "",
+        //     authors: "",
+        //     venue: "",
+        //     url: "",
+        //     topic: [""],
+        //     lab: [""],
+        //     commentary: ``
+        // }
+    ];
 
     // Centralized Metadata Index Mapping for Subsectional Primary Headings Description Text Nodes
     const primaryTopicDescriptions = {
         "Women's Health": "",
         "General Medicine": "",
-        "Methods \& Theory": "Note: generally speaking, I do not intend to do research in general method development. Rather, I want to apply/modify existing methods to specific problems in a way that serves underrepresented or vulnerable groups/ecosystems. To do so, I will need to stay informed on what methods work well and on what kinds of problems, and that's what this section of the database is for.  <br><br> Edit: SIML is a bit of an outlier.  I've seen some really interesting papers related to SIML, but I also don't know if I want to work on SIML development in isolation unless I can somehow ensure that my methods will not be used to justify/develop mass surveillance."
+        "Methods \& Theory": "Note: generally speaking, I do not intend to do research in general method development. Rather, I want to apply/modify existing methods to specific problems in a way that serves underrepresented or vulnerable groups/ecosystems. To do so, I will need to stay informed on what methods work well and on what kinds of problems, and that's what this section of the database is for.  <br><br> Edit: SIML is a bit of an outlier.  I've seen some really interesting papers related to SIML, but I also don't know if I want to work on SIML development in isolation unless I can somehow ensure that my methods will not be used to justify/develop mass surveillance.",
+        "AI Perception and Risks": `The term \"AI\" has become an annoyingly 
+        ubiquitous buzz word
+        word that can sometimes refer to large generative models like GPT, 
+        Gemini, etc. but can sometimes be an umbrella term for machine/deep 
+        learning.  I encourage the reader to use context clues to make the 
+        discernment. <br><br>
+        
+         
+        In this section, I will assume (hopefully not erroneously), that when the 
+        authors speak of AI, they are speaking of large generative models.  If that 
+        assumption does not hold, then the paper does not belong in this section, 
+        and I will have to move it. I shall also note that I read these 
+        papers to stay informed so that I may
+        argue on behalf of those that wish to choose not to use AI, not because I
+        want to do generative modeling related research myself.  
+        Quite the contrary.
+        `
     };
 
     const customTopicOrder = [
@@ -1025,7 +1187,8 @@
         "International Accountability and Regulation",
         "Wildlife Conservation",
         "General Medicine",
-        "Methods \& Theory"
+        "Methods \& Theory",
+        "AI Perception and Risks"
     ];
 
     const customLabOrder = [
@@ -1037,6 +1200,7 @@
         "Teamcore",
         "Alkema Lab",
         "FXB Center",
+        "Stanford NLP",
         "Angela Zhou (USC)",
         "Dennis Shen (USC)",
         "To sort"
